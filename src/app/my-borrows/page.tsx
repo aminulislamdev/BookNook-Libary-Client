@@ -277,7 +277,7 @@ function MyBorrowsContent() {
                         const borrowDate = raw.borrowDate || borrow.borrowedAt;
                         const returnDate = raw.returnDate || borrow.dueDate;
                         const isActive = borrow.returnedAt === null;
-                        const daysLeft = isActive ? daysBetween(returnDate) : 0;
+                        const daysLeft = isActive ? daysBetween(returnDate || new Date()) : 0;
                         const overdue = isActive && daysLeft < 0;
 
                         return (
@@ -356,7 +356,7 @@ function MyBorrowsContent() {
                     const borrowDate = raw.borrowDate || borrow.borrowedAt;
                     const returnDate = raw.returnDate || borrow.dueDate;
                     const isActive = borrow.returnedAt === null;
-                    const daysLeft = isActive ? daysBetween(returnDate) : 0;
+                    const daysLeft = isActive ? daysBetween(returnDate || new Date()) : 0;
                     const overdue = isActive && daysLeft < 0;
 
                     return (

@@ -39,7 +39,9 @@ export type Borrow = {
   userName: string;
   userEmail: string;
   borrowDate: string;
+  borrowedAt?: string; 
   returnDate: string;
+  dueDate?: string;    
   returnedAt: string | null;
   status: "active" | "returned";
   book?: Book | null;
