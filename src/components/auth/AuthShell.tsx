@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { BookOpen, CheckCircle2, Library, ShieldCheck } from "lucide-react";
 import Container from "@/components/ui/Container";
+import Image from "next/image";
 
 const benefits = [
   {
@@ -36,9 +37,9 @@ export default function AuthShell({
       <Container className="w-full">
         <div className="grid overflow-hidden rounded-4xl border border-line bg-paper shadow-[0_25px_70px_-45px_rgba(28,25,23,0.25)] lg:grid-cols-[1.05fr_0.95fr]">
 
-          {/* বাম দিকের ফর্ম সেকশন */}
-          <div className="p-6 sm:p-10 lg:p-12">
-            <div className="mx-auto max-w-md">
+       
+          <div className="flex items-center justify-center p-6 sm:p-10 lg:p-12">
+            <div className="mx-auto w-full max-w-md">
               <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand">
                 <BookOpen className="h-6 w-6" aria-hidden="true" />
               </span>
@@ -55,7 +56,7 @@ export default function AuthShell({
             </div>
           </div>
 
-          {/* ডান দিকের ডার্ক টিল সেকশন */}
+
           <div className="relative hidden overflow-hidden bg-brand-dark p-10 text-white lg:flex lg:flex-col lg:justify-between">
             <BookOpen
               aria-hidden="true"
@@ -78,7 +79,20 @@ export default function AuthShell({
               <p className="mt-3 text-sm text-teal-100/70">George R. R. Martin</p>
             </div>
 
-            <div className="relative mt-10 space-y-5">
+            <div className="relative my-10 flex-1 overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+              <Image
+                src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop"
+                alt="A quiet reading room"
+                height={400}
+                width={600}
+                priority
+                quality={100}
+                className="h-full w-full object-cover opacity-80 transition duration-700 hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-brand-dark/90 via-brand-dark/20 to-transparent" />
+            </div>
+
+            <div className="relative space-y-5">
               {benefits.map((benefit) => {
                 const Icon = benefit.icon;
                 return (
