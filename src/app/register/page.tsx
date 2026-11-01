@@ -13,7 +13,6 @@ import { FieldError, Input, Label } from "@/components/ui/Form";
 import { useToast } from "@/components/ui/Toast";
 import { authClient } from "@/lib/auth-client";
 import { safeRedirect } from "@/lib/utils";
-import { apiRequest, setAuthToken } from "@/lib/api";
 
 function GoogleIcon() {
   return (
@@ -106,7 +105,8 @@ function RegisterForm() {
 
     setIsSubmitting(true);
 
-    const { data: authData, error: authError } = await authClient.signUp.email({
+    // ✅ JWT জেনারেটের পুরোনো কোড বাদ দেওয়া হলো
+    const { error: authError } = await authClient.signUp.email({
       name: name.trim(),
       email: email.trim(),
       password,
@@ -117,22 +117,6 @@ function RegisterForm() {
       setError(authError.message ?? "Could not create your account. Please try again.");
       setIsSubmitting(false);
       return;
-    }
-
-    // Fetch JWT token for backend authorization
-    try {
-      const user = authData?.user;
-      if (user) {
-        const jwtRes = await apiRequest<{ token: string }>("/jwt", {
-          method: "POST",
-          body: { id: user.id, email: user.email, name: user.name },
-        });
-        if (jwtRes.token) {
-          setAuthToken(jwtRes.token);
-        }
-      }
-    } catch (e) {
-      console.warn("Could not retrieve initial JWT:", e);
     }
 
     toast.success("Account created successfully! Welcome to BookNook.");
