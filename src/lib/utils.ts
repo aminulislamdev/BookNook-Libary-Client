@@ -41,3 +41,11 @@ export function daysFromNow(days: number): Date {
   date.setDate(date.getDate() + days);
   return date;
 }
+
+
+export function safeRedirect(value: string | null): string {
+  if (!value || !value.startsWith("/") || value.startsWith("//")) {
+    return "/";
+  }
+  return value;
+}
