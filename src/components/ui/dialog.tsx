@@ -2,9 +2,9 @@
 
 import * as React from "react"
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
-import { cn } from "cn"
+import { cn } from "@/lib/utils" // ✅ cn ইম্পোর্ট ঠিক করা হলো
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button" // ✅ Button এর বড় হাতের অক্ষর
 import { XIcon } from "lucide-react"
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
@@ -65,15 +65,14 @@ function DialogContent({
             render={
               <Button
                 variant="ghost"
-                className="absolute top-2 right-2"
-                size="icon-sm"
-              />
+                className="absolute top-2 right-2 h-9 w-9 p-0"
+                size="sm"
+              >
+                <XIcon />
+                <span className="sr-only">Close</span>
+              </Button>
             }
-          >
-            <XIcon
-            />
-            <span className="sr-only">Close</span>
-          </DialogPrimitive.Close>
+          />
         )}
       </DialogPrimitive.Popup>
     </DialogPortal>
@@ -109,7 +108,8 @@ function DialogFooter({
     >
       {children}
       {showCloseButton && (
-        <DialogPrimitive.Close render={<Button variant="outline" />}>
+        // ✅ children মিসিং এরর ঠিক করা হলো
+        <DialogPrimitive.Close render={<Button variant="outline">Close</Button>}>
           Close
         </DialogPrimitive.Close>
       )}
