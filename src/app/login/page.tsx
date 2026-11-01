@@ -53,9 +53,9 @@ function LoginForm() {
 
   useEffect(() => {
     if (!isPending && session?.user) {
-      router.replace(redirect);
+      router.push("/");
     }
-  }, [isPending, session, router, redirect]);
+  }, [isPending, session, router]);
 
   async function handleGoogleSignIn() {
     setIsGoogleLoading(true);
@@ -88,21 +88,30 @@ function LoginForm() {
 
     setIsSubmitting(true);
 
-    const { error: authError } = await authClient.signIn.email({
-      email: email.trim(),
-      password,
-    });
+    try {
+      const { error: authError } = await authClient.signIn.email({
+        email: email.trim(),
+        password,
+      });
 
-    if (authError) {
-      setError(authError.message ?? "Could not sign you in. Check your details.");
-      toast.error(authError.message ?? "Invalid email or password.");
+      if (authError) {
+        setError(authError.message ?? "Could not sign you in. Check your details.");
+        toast.error(authError.message ?? "Invalid email or password.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      toast.success("Welcome back! Signed in successfully.");
+
+      await authClient.getSession();
+
+      router.push("/");
+      router.refresh();
+    } catch {
+      setError("Could not sign you in. Please try again.");
+      toast.error("Could not sign you in. Please try again.");
       setIsSubmitting(false);
-      return;
     }
-
-    toast.success("Welcome back! Signed in successfully.");
-    router.push(redirect);
-    router.refresh();
   }
 
   return (

@@ -1,5 +1,5 @@
 // lib/api.ts
-import { getClientToken } from "./client-token";
+import { getClientToken, invalidateClientToken } from "./client-token";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api";
 
@@ -7,6 +7,8 @@ export const TOKEN_STORAGE_KEY = "booknook_jwt_token";
 
 // শুধুমাত্র ক্লিনআপের জন্য (লগআউটের সময়)
 export function removeAuthToken(): void {
+  invalidateClientToken();
+
   if (typeof window === "undefined") return;
   localStorage.removeItem(TOKEN_STORAGE_KEY);
 }
