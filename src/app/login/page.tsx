@@ -13,7 +13,6 @@ import { FieldError, Input, Label } from "@/components/ui/Form";
 import { useToast } from "@/components/ui/Toast";
 import { authClient } from "@/lib/auth-client";
 import { safeRedirect } from "@/lib/utils";
-import { apiRequest, setAuthToken } from "@/lib/api";
 
 function GoogleIcon() {
   return (
@@ -89,31 +88,16 @@ function LoginForm() {
 
     setIsSubmitting(true);
 
-    const { data: authData, error: authError } = await authClient.signIn.email({
+    const { error: authError } = await authClient.signIn.email({
       email: email.trim(),
       password,
     });
 
     if (authError) {
       setError(authError.message ?? "Could not sign you in. Check your details.");
+      toast.error(authError.message ?? "Invalid email or password.");
       setIsSubmitting(false);
       return;
-    }
-
-    // Fetch JWT token for backend authorization
-    try {
-      const user = authData?.user;
-      if (user) {
-        const jwtRes = await apiRequest<{ token: string }>("/jwt", {
-          method: "POST",
-          body: { id: user.id, email: user.email, name: user.name },
-        });
-        if (jwtRes.token) {
-          setAuthToken(jwtRes.token);
-        }
-      }
-    } catch (e) {
-      console.warn("Could not retrieve initial JWT:", e);
     }
 
     toast.success("Welcome back! Signed in successfully.");
