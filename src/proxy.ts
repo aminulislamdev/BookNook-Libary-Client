@@ -4,6 +4,13 @@ import type { NextRequest } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
 
 export async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Cover images live in /public/books and should be public.
+  if (pathname.startsWith("/books/") && /\.[^/]+$/.test(pathname)) {
+    return NextResponse.next();
+  }
+
   const sessionCookie = getSessionCookie(request);
 
  
