@@ -44,6 +44,23 @@ export default function AllBooksClient() {
 
   const retry = useCallback(() => setReloadKey((key) => key + 1), []);
 
+  useEffect(() => {
+    const urlCategory = searchParams.get("category");
+    const urlSearch = searchParams.get("q");
+
+    if (urlCategory && CATEGORIES.includes(urlCategory as Category)) {
+      setCategory(urlCategory);
+    } else if (!urlCategory) {
+      setCategory("All");
+    }
+
+    if (urlSearch !== null) {
+      setSearch(urlSearch);
+    } else {
+      setSearch("");
+    }
+  }, [searchParams]);
+
   // Whenever the search or category changes, start again from page one.
   useEffect(() => {
     if (isFirstFilterRun.current) {
@@ -195,9 +212,9 @@ export default function AllBooksClient() {
                 : total === 0
                   ? "No books match these filters"
                   : `Showing ${(data?.page ?? 1) === 1 ? 1 : (data!.page - 1) * PAGE_SIZE + 1}–${Math.min(
-                      (data?.page ?? 1) * PAGE_SIZE,
-                      total,
-                    )} of ${total} ${total === 1 ? "book" : "books"}`}
+                    (data?.page ?? 1) * PAGE_SIZE,
+                    total,
+                  )} of ${total} ${total === 1 ? "book" : "books"}`}
             </p>
             {hasFilters ? (
               <button
