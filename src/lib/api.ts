@@ -1,11 +1,11 @@
 // lib/api.ts
 import { getClientToken, invalidateClientToken } from "./client-token";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://booknook-s-ph.vercel.app/api";
 
 export const TOKEN_STORAGE_KEY = "booknook_jwt_token";
 
-// শুধুমাত্র ক্লিনআপের জন্য (লগআউটের সময়)
+
 export function removeAuthToken(): void {
   invalidateClientToken();
 
@@ -24,16 +24,22 @@ export class ApiError extends Error {
 
 type ApiRequestOptions = Omit<RequestInit, "body"> & {
   body?: unknown;
+  /**
+   * Whether to attach a Better Auth JWT. Set to false for public endpoints so
+   * signed-out visitors never hit the session-gated `/api/auth/token` route.
+   * Defaults to true.
+   */
+  auth?: boolean;
 };
 
 export async function apiRequest<T>(
   path: string,
   options: ApiRequestOptions = {},
 ): Promise<T> {
-  const { body, headers, ...rest } = options;
+  const { body, headers, auth = true, ...rest } = options;
 
-  // ✅ Better Auth থেকে টোকেন নেওয়া হচ্ছে
-  const token = await getClientToken();
+  // ✅ Better Auth থেকে টোকেন নেওয়া হচ্ছে (only for authenticated endpoints)
+  const token = auth ? await getClientToken() : null;
 
   const requestHeaders: Record<string, string> = {
     ...(body !== undefined ? { "Content-Type": "application/json" } : {}),

@@ -85,7 +85,9 @@ export default function AllBooksClient() {
     if (debouncedSearch.trim()) params.set("search", debouncedSearch.trim());
     if (category !== "All") params.set("category", category);
 
-    apiRequest<BooksResponse | Book[]>(`/books?${params.toString()}`)
+    apiRequest<BooksResponse | Book[]>(`/books?${params.toString()}`, {
+      auth: false,
+    })
       .then((response) => {
         if (!active) return;
         if (Array.isArray(response)) {

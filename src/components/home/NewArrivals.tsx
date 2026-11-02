@@ -27,7 +27,9 @@ export default function NewArrivals() {
   useEffect(() => {
     let active = true;
 
-    apiRequest<BooksResponse | Book[]>("/books?limit=6&sort=newest")
+    apiRequest<BooksResponse | Book[]>("/books?limit=6&sort=newest", {
+      auth: false,
+    })
       .then((data) => {
         if (!active) return;
         if (Array.isArray(data)) {

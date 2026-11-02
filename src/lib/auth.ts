@@ -1,4 +1,3 @@
-
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { MongoClient } from "mongodb";
@@ -13,6 +12,11 @@ const client = (globalForMongo._mongoClient ??= new MongoClient(uri));
 
 export const auth = betterAuth({
   database: mongodbAdapter(client.db("booknook"), { transaction: false }),
+
+  secret: process.env.BETTER_AUTH_SECRET,
+  baseURL: process.env.BETTER_AUTH_URL,
+  trustedOrigins: [process.env.BETTER_AUTH_URL ?? "https://booknook-c-ph.vercel.app"],
+
   emailAndPassword: { enabled: true },
   session: {
     cookieCache: { enabled: true },
@@ -31,4 +35,13 @@ export const auth = betterAuth({
       },
     }),
   ],
+
+  
+  advanced: {
+    useSecureCookies: true,
+    defaultCookieAttributes: {
+      sameSite: "none",
+      secure: true,
+    },
+  },
 });

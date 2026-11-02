@@ -87,10 +87,25 @@ function writeCachedToken(entry: CachedToken): void {
 
 async function requestToken(epoch: number): Promise<string | null> {
   try {
+    // `/api/auth/token` is session-gated: calling it while signed out is
+    // guaranteed to return 401. Check for a session first so guests and
+    // expired sessions skip the token request instead of logging an error.
+    const { data: session } = await authClient.getSession();
+    if (!session?.session) return null;
+
     const { data, error } = await authClient.token();
 
-    if (error || !data?.token) {
-      console.error("Failed to get client token:", error ?? "No token returned");
+    if (error) {
+      // A 401 here means the session ended between the two requests. That is
+      // an expected sign-out, not a token failure worth logging.
+      if (error.status !== 401) {
+        console.error("Failed to get client token:", error);
+      }
+      return null;
+    }
+
+    if (!data?.token) {
+      console.error("Failed to get client token: No token returned");
       return null;
     }
 

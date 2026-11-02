@@ -68,7 +68,7 @@ function BookDetailsContent() {
     setLoading(true);
     setError("");
 
-    apiRequest<{ book: Book } | Book>(`/books/${id}`)
+    apiRequest<{ book: Book } | Book>(`/books/${id}`, { auth: false })
       .then((response) => {
         if (!active) return;
         const fetchedBook = "book" in response ? response.book : response;
