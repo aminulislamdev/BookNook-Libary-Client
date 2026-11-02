@@ -36,7 +36,7 @@ export default function BookCard({
     >
       <Link
         href={`/books/${book.id}`}
-        className="relative block aspect-[2/3] overflow-hidden bg-slate-100"
+        className="relative block aspect-4/5 overflow-hidden bg-slate-100"
         aria-label={`View details for ${book.title}`}
       >
         <BookCover
@@ -79,7 +79,6 @@ export default function BookCard({
 
         <div className="mt-auto pt-5">
           {actions ?? (
-            // ✅ Button এর বদলে Link ব্যবহার করা হলো
             <Link
               href={`/books/${book.id}`}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-soft py-2.5 text-sm font-semibold text-brand-dark transition hover:bg-teal-100/80"
