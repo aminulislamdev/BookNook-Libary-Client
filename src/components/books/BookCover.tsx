@@ -25,7 +25,6 @@ export default function BookCover({
   }, [src]);
 
   const showFallback = !src || failed;
-  const isRemote = Boolean(src && !src.startsWith("/"));
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-slate-100">
@@ -42,9 +41,9 @@ export default function BookCover({
           alt={alt}
           fill
           sizes={sizes}
-          unoptimized={isRemote}
+          unoptimized={true}
           loading={eager ? "eager" : "lazy"}
-          className={cn("object-cover", className)}
+          className={cn("object-contain object-center p-2", className)}
           onError={() => setFailed(true)}
         />
       )}

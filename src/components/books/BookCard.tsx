@@ -36,7 +36,7 @@ export default function BookCard({
     >
       <Link
         href={`/books/${book.id}`}
-        className="relative block aspect-4/5 overflow-hidden bg-slate-100"
+        className="relative block h-65 w-full overflow-hidden bg-slate-100"
         aria-label={`View details for ${book.title}`}
       >
         <BookCover
