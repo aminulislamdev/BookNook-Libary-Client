@@ -1,27 +1,25 @@
+import { Suspense } from "react";
 import HeroSlider from "@/components/home/HeroSlider";
 import Categories from "@/components/home/Categories";
-import NewArrivals from "@/components/home/NewArrivals";
-import HowItWorks from "@/components/home/HowItWorks";
-import CtaSection from "@/components/home/CtaSection";
-import ReadingNook from "@/components/home/ReadingNook";
 import DiscoverySection from "@/components/home/DiscoverySection";
-import { Suspense } from "react";
-
+import NewArrivals from "@/components/home/NewArrivals";
+import ReadingNook from "@/components/home/ReadingNook";
+import ReadersWall from "@/components/home/ReadersWall"; // ✅ নতুন সেকশন
+import CtaSection from "@/components/home/CtaSection";
 
 export default function HomePage() {
   return (
     <main>
-
-      <Suspense fallback={<div className="h-125 bg-ink" />}>
+    
+      <Suspense fallback={<div className="h-125 w-full bg-ink animate-pulse" />}>
         <HeroSlider />
       </Suspense>
 
-
       <Categories />
       <DiscoverySection />
-      <ReadingNook />
       <NewArrivals />
-      <HowItWorks />
+      <ReadingNook />
+      <ReadersWall />
       <CtaSection />
     </main>
   );
