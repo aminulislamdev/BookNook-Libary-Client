@@ -32,6 +32,11 @@ This repository contains the **BookNook frontend client**. Authentication is han
 
 ---
 
+**Live Website:** [https://booknook-c-ph.vercel.app](https://booknook-c-ph.vercel.app)
+
+**Server API:** [https://booknook-s-ph.vercel.app](https://booknook-s-ph.vercel.app)
+
+---
 ## Project Overview
 
 BookNook is a full reading-room experience rather than a simple catalog. The home page combines an image-led hero slider, browsing categories, curated discovery tools, new arrivals, a rotating reading quote, and a reader's wall of community book notes. Signed-in readers get a complete loan lifecycle: add a book, see it on their shelf, edit or delete it, borrow other readers' books, and return them when finished.
