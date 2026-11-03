@@ -28,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
+          <Suspense fallback={null}>
           <PageTitleProvider>
           <ToastProvider>
             <Suspense
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Footer />
           </ToastProvider>
           </PageTitleProvider>
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>
