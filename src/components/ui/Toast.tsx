@@ -33,6 +33,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     const id = Math.random().toString(36).substring(2, 9);
     setToasts((prev) => [...prev, { id, type, message }]);
 
+    // ৪ সেকেন্ড পর অটোমেটিক রিমুভ হবে
     setTimeout(() => {
       removeToast(id);
     }, 4000);
@@ -50,10 +51,11 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   return (
     <ToastContext.Provider value={{ toast }}>
       {children}
-      {/* Toast container */}
+
+      {/* টোস্ট কন্টেইনার */}
       <div
         aria-live="polite"
-        className="fixed bottom-5 right-5 z-50 flex max-w-md w-full flex-col gap-2.5 pointer-events-none px-4 sm:px-0"
+        className="fixed bottom-5 right-5 z-9999 flex max-w-md w-full flex-col gap-2.5 pointer-events-none px-4 sm:px-0"
       >
         {toasts.map((item) => (
           <div
@@ -61,30 +63,31 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             role="status"
             className={cn(
               "pointer-events-auto flex items-center justify-between gap-3 rounded-2xl border p-4 shadow-lg backdrop-blur-md transition-all animate-fade-in",
+              // ✅ লাইট ও ডার্ক মোডের জন্য কালার
               item.type === "success" &&
-                "border-emerald-200 bg-white/95 text-emerald-950 shadow-emerald-500/10",
+              "border-emerald-200 bg-white/95 text-emerald-950 shadow-emerald-500/10 dark:border-emerald-800 dark:bg-slate-900/95 dark:text-emerald-100",
               item.type === "error" &&
-                "border-rose-200 bg-white/95 text-rose-950 shadow-rose-500/10",
+              "border-rose-200 bg-white/95 text-rose-950 shadow-rose-500/10 dark:border-rose-800 dark:bg-slate-900/95 dark:text-rose-100",
               item.type === "info" &&
-                "border-sky-200 bg-white/95 text-sky-950 shadow-sky-500/10"
+              "border-sky-200 bg-white/95 text-sky-950 shadow-sky-500/10 dark:border-sky-800 dark:bg-slate-900/95 dark:text-sky-100"
             )}
           >
             <div className="flex items-center gap-3">
               {item.type === "success" && (
-                <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" aria-hidden="true" />
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
               )}
               {item.type === "error" && (
-                <AlertCircle className="h-5 w-5 shrink-0 text-rose-600" aria-hidden="true" />
+                <AlertCircle className="h-5 w-5 shrink-0 text-rose-600 dark:text-rose-400" aria-hidden="true" />
               )}
               {item.type === "info" && (
-                <Info className="h-5 w-5 shrink-0 text-sky-600" aria-hidden="true" />
+                <Info className="h-5 w-5 shrink-0 text-sky-600 dark:text-sky-400" aria-hidden="true" />
               )}
               <p className="text-sm font-medium leading-snug">{item.message}</p>
             </div>
             <button
               type="button"
               onClick={() => removeToast(item.id)}
-              className="rounded-lg p-1 text-slate-400 transition hover:bg-slate-100 hover:text-ink"
+              className="rounded-lg p-1 text-slate-400 transition hover:bg-slate-100 hover:text-ink dark:hover:bg-slate-800"
               aria-label="Close notification"
             >
               <X className="h-4 w-4" />
@@ -103,4 +106,3 @@ export function useToast() {
   }
   return context.toast;
 }
-

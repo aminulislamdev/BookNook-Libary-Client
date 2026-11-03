@@ -74,12 +74,12 @@ export default function BorrowModal({
       });
 
       setSuccess(true);
-      toast.success(`You have borrowed "${book.title}"!`);
+      toast.success(`You have borrowed "${book.title}"!`); // ✅ সাকসেস টোস্ট
       onBorrowed();
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Could not borrow this book.";
       setError(msg);
-      toast.error(msg);
+      toast.error(msg); // ✅ এরর টোস্ট (ডাবল বোরো হলে এখানে মেসেজ আসবে)
     } finally {
       setIsSubmitting(false);
     }

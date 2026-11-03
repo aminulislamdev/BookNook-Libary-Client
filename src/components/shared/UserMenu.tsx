@@ -7,6 +7,8 @@ import { ChevronDown, LogOut, UserRound } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { cn, initials } from "@/lib/utils";
 import { removeAuthToken } from "@/lib/api";
+import { useToast } from "@/components/ui/Toast";
+
 
 type UserMenuProps = {
   user: {
@@ -21,6 +23,9 @@ export default function UserMenu({ user }: UserMenuProps) {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  const toast = useToast();
+
 
   useEffect(() => {
     if (!open) return;
@@ -49,6 +54,7 @@ export default function UserMenu({ user }: UserMenuProps) {
     await authClient.signOut();
     setIsLoggingOut(false);
     setOpen(false);
+    toast.success("Logged out successfully!");
     router.push("/");
     router.refresh();
   }
