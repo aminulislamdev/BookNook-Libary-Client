@@ -8,8 +8,9 @@ import { authClient } from "@/lib/auth-client";
 import { removeAuthToken } from "@/lib/api";
 import UserMenu from "@/components/shared/UserMenu";
 import NavLogo from "./navbar/NavLogo";
-import NavLinks from "./navbar/NavLinks";     
-import MobileMenu from "./navbar/MobileMenu"; 
+import NavLinks from "./navbar/NavLinks";
+import MobileMenu from "./navbar/MobileMenu";
+import ThemeToggle from "@/components/shared/ThemeToggle"; // ✅ নতুন ইম্পোর্ট
 
 const publicLinks = [
   { name: "Home", href: "/" },
@@ -53,7 +54,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/80 bg-white/95 backdrop-blur supports-backdrop-filter:bg-white/90">
+    <header className="sticky top-0 z-50 border-b border-line/80 bg-paper/95 backdrop-blur supports-backdrop-filter:bg-paper/90">
       <nav
         aria-label="Main navigation"
         className="mx-auto flex h-18 w-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8"
@@ -63,8 +64,11 @@ export default function Navbar() {
         <NavLinks links={navLinks} />
 
         <div className="hidden items-center gap-3 lg:flex">
+          {/* ✅ থিম টগল বাটন যোগ করা হলো */}
+          <ThemeToggle />
+
           {isPending ? (
-            <div className="h-9 w-9 animate-pulse rounded-full bg-slate-200" />
+            <div className="h-9 w-9 animate-pulse rounded-full bg-slate-200 dark:bg-slate-700" />
           ) : user ? (
             <UserMenu
               user={{
@@ -77,7 +81,7 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
-                className="rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-brand"
+                className="rounded-xl px-3.5 py-2.5 text-sm font-semibold text-ink transition hover:bg-canvas hover:text-brand"
               >
                 Login
               </Link>
@@ -94,7 +98,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setMobileOpenForPath(mobileOpen ? null : pathname)}
-          className="rounded-xl p-2.5 text-ink transition hover:bg-slate-100 lg:hidden"
+          className="rounded-xl p-2.5 text-ink transition hover:bg-canvas lg:hidden"
           aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={mobileOpen}
           aria-controls="mobile-navigation"

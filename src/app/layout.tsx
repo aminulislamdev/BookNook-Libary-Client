@@ -1,49 +1,42 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Geist } from "next/font/google";
-import "./globals.css";
+import { Inter, Playfair_Display, Geist } from "next/font/google"; 
+import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/shared/ThemeProvider"; 
+import { ToastProvider } from "@/components/ui/Toast";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
-import { ToastProvider } from "@/components/ui/Toast";
-import { cn } from "@/lib/utils";
+import { Suspense } from "react";
+import "./globals.css";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
 
 export const metadata: Metadata = {
-  title: {
-    default: "BookNook — Discover Your Next Favorite Book",
-    template: "%s | BookNook",
-  },
-  description:
-    "A calm, modern library for discovering, borrowing, and sharing books you will love.",
+  title: "BookNook - A Small Online Library",
+  description: "Discover, borrow, and share books in a calm, curated library.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={cn(inter.variable, playfair.variable, "font-sans", geist.variable)}>
+    <html lang="en" suppressHydrationWarning className={cn(inter.variable, playfair.variable, "font-sans", geist.variable)}>
       <body className="flex min-h-screen flex-col bg-canvas font-sans text-ink antialiased">
-        <ToastProvider>
-          <Suspense
-            fallback={<div className="h-[72px] border-b border-line bg-white" />}
-          >
-            <Navbar />
-          </Suspense>
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </ToastProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ToastProvider>
+            <Suspense
+              fallback={<div className="h-18 border-b border-line bg-paper" />}
+            >
+              <Navbar />
+            </Suspense>
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </ToastProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

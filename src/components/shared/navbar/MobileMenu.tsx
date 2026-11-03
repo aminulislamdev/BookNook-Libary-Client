@@ -4,11 +4,12 @@ import { LogOut, UserRound } from "lucide-react";
 import { cn, initials } from "@/lib/utils";
 import Image from "next/image";
 import type { User } from "better-auth";
+import ThemeToggle from "@/components/shared/ThemeToggle"; // ✅ নতুন ইম্পোর্ট
 
 type MobileMenuProps = {
   isOpen: boolean;
   links: { name: string; href: string }[];
-  user: User | null; 
+  user: User | null;
   isPending: boolean;
   onLogout: () => void;
   isLoggingOut: boolean;
@@ -34,7 +35,8 @@ export default function MobileMenu({
   return (
     <div
       id="mobile-navigation"
-      className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-line bg-white px-4 pb-6 pt-3 shadow-xl animate-fade-in lg:hidden"
+      // ✅ bg-white থেকে bg-paper করা হলো
+      className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-line bg-paper px-4 pb-6 pt-3 shadow-xl animate-fade-in lg:hidden"
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-1">
         {links.map((link) => {
@@ -48,7 +50,7 @@ export default function MobileMenu({
                 "rounded-xl px-4 py-3 text-sm font-semibold transition",
                 active
                   ? "bg-brand-soft text-brand-dark"
-                  : "text-slate-600 hover:bg-slate-50 hover:text-brand",
+                  : "text-muted hover:bg-canvas hover:text-brand", // ✅ text-slate-600 থেকে text-muted
               )}
             >
               {link.name}
@@ -59,10 +61,11 @@ export default function MobileMenu({
 
       <div className="mx-auto mt-4 max-w-7xl border-t border-line pt-4">
         {isPending ? (
-          <div className="h-11 animate-pulse rounded-xl bg-slate-100" />
+          <div className="h-11 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
         ) : user ? (
           <div className="space-y-3">
-            <div className="flex items-center gap-3 rounded-2xl bg-slate-50 p-3">
+            {/* ✅ bg-slate-50 থেকে bg-canvas */}
+            <div className="flex items-center gap-3 rounded-2xl bg-canvas p-3 border border-line">
               {user.image ? (
                 <Image
                   src={user.image}
@@ -86,36 +89,51 @@ export default function MobileMenu({
 
             <Link
               href="/profile"
-              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-brand"
+              // ✅ text-slate-600 থেকে text-muted, hover:bg-slate-50 থেকে hover:bg-canvas
+              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-muted transition hover:bg-canvas hover:text-brand"
             >
               <UserRound className="h-4 w-4" aria-hidden="true" />
               My Profile
             </Link>
 
+            {/* ✅ থিম টগল বাটন */}
+            <div className="flex items-center justify-between rounded-xl px-4 py-3 border border-line bg-canvas">
+              <span className="text-sm font-semibold text-ink">Appearance</span>
+              <ThemeToggle />
+            </div>
+
             <button
               type="button"
               onClick={onLogout}
               disabled={isLoggingOut}
-              className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:opacity-60"
+              className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-red-600 transition hover:bg-red-50 dark:hover:bg-red-950/30 disabled:opacity-60"
             >
               <LogOut className="h-4 w-4" aria-hidden="true" />
               {isLoggingOut ? "Logging out…" : "Logout"}
             </button>
           </div>
         ) : (
-          <div className="flex gap-3">
-            <Link
-              href="/login"
-              className="flex-1 rounded-xl border border-line py-3 text-center text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand"
-            >
-              Login
-            </Link>
-            <Link
-              href="/register"
-              className="flex-1 rounded-xl bg-brand py-3 text-center text-sm font-semibold text-white transition hover:bg-brand-dark"
-            >
-              Register
-            </Link>
+          <div className="flex flex-col gap-3">
+            {/* ✅ থিম টগল বাটন (লগআউট অবস্থায়) */}
+            <div className="flex items-center justify-between rounded-xl px-4 py-3 border border-line bg-canvas">
+              <span className="text-sm font-semibold text-ink">Appearance</span>
+              <ThemeToggle />
+            </div>
+
+            <div className="flex gap-3 mt-2">
+              <Link
+                href="/login"
+                className="flex-1 rounded-xl border border-line py-3 text-center text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand"
+              >
+                Login
+              </Link>
+              <Link
+                href="/register"
+                className="flex-1 rounded-xl bg-brand py-3 text-center text-sm font-semibold text-white transition hover:bg-brand-dark"
+              >
+                Register
+              </Link>
+            </div>
           </div>
         )}
       </div>
