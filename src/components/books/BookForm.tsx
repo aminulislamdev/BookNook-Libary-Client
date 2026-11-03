@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { ArrowRight, ImageIcon, Upload, ExternalLink } from "lucide-react";
 import BookCover from "@/components/books/BookCover";
 import Badge from "@/components/ui/Badge";
-import { Button} from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 import { FieldError, Input, Label, Select, Textarea } from "@/components/ui/Form";
 import { apiRequest } from "@/lib/api";
 import { CATEGORIES, type Book } from "@/lib/types";
@@ -61,8 +61,6 @@ export default function BookForm({
     setValues((current) => ({ ...current, [key]: value }));
   }
 
-  // Handle local image file upload & convert to Data URL or upload to ImgBB
-  // ✅ নতুন ImgBB আপলোড লজিক
   async function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -72,7 +70,7 @@ export default function BookForm({
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) { // ImgBB সর্বোচ্চ ৩২ মেগাবাইট সাপোর্ট করে, তবে আমরা ৫ মেগাবাইট লিমিট দিচ্ছি
+    if (file.size > 5 * 1024 * 1024) {
       setFieldError("Image file size should be less than 5MB.");
       return;
     }
@@ -98,7 +96,6 @@ export default function BookForm({
         throw new Error(data.error?.message || "Failed to upload image to ImgBB.");
       }
 
-      
       update("image", data.data.url);
       toast.success("Image uploaded successfully to ImgBB!");
     } catch (err) {
@@ -107,7 +104,7 @@ export default function BookForm({
       toast.error(message);
     } finally {
       setIsUploading(false);
-      if (fileInputRef.current) fileInputRef.current.value = ""; 
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   }
 
@@ -132,6 +129,23 @@ export default function BookForm({
     setIsSubmitting(true);
 
     try {
+     
+      if (!book) {
+        const existing = await apiRequest<{ books: Book[] }>(
+          `/books?search=${encodeURIComponent(values.title.trim())}`
+        );
+
+        const isDuplicate = existing.books.some(
+          (b) => b.title.toLowerCase().trim() === values.title.toLowerCase().trim()
+        );
+
+        if (isDuplicate) {
+          toast.error(`"${values.title.trim()}" already exists in the library!`);
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
       const now = new Date().toISOString();
       const payload = {
         title: values.title.trim(),
@@ -363,16 +377,16 @@ export default function BookForm({
 
           <div className="flex flex-col-reverse gap-3 border-t border-line pt-5 sm:flex-row sm:justify-end">
             {onCancel ? (
-              <Button  variant="outline" onClick={onCancel}>
+              <Button variant="outline" onClick={onCancel}>
                 Cancel
               </Button>
             ) : (
-                <Link
-                  href="/books"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 h-11 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand"
-                >
-                  Cancel
-                </Link>
+              <Link
+                href="/books"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 h-11 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand"
+              >
+                Cancel
+              </Link>
             )}
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting
