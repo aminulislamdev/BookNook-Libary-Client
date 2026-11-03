@@ -7,6 +7,7 @@ import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { Suspense } from "react";
 import "./globals.css";
+import PageTitleProvider from "@/components/shared/PageTitleProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -23,10 +24,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-screen flex-col bg-canvas font-sans text-ink antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="Light"
           enableSystem
           disableTransitionOnChange
         >
+          <PageTitleProvider>
           <ToastProvider>
             <Suspense
               fallback={<div className="h-18 border-b border-line bg-paper" />}
@@ -36,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <main className="flex-1">{children}</main>
             <Footer />
           </ToastProvider>
+          </PageTitleProvider>
         </ThemeProvider>
       </body>
     </html>
