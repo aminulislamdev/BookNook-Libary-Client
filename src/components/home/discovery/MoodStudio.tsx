@@ -15,7 +15,7 @@ export default function MoodStudio() {
   const [selectedMood, setSelectedMood] = useState<keyof typeof MOOD_DATA | null>(null);
 
   return (
-    <div className="rounded-3xl bg-paper border border-line p-8 shadow-sm transition-all hover:shadow-md">
+    <div className="rounded-3xl bg-paper border border-line p-8 shadow-sm transition-all hover:shadow-md flex flex-col h-full">
       <div className="flex items-center gap-3 mb-6">
         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand">
           <Sparkles className="h-5 w-5" />
@@ -35,7 +35,7 @@ export default function MoodStudio() {
             <button
               key={mood}
               onClick={() => setSelectedMood(mood)}
-              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${isActive ? "ring-2 ring-brand ring-offset-2 bg-white" : color
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive ? "ring-2 ring-brand ring-offset-2 bg-white scale-105 shadow-sm" : color
                 }`}
             >
               <Icon className="h-4 w-4" />
@@ -45,27 +45,45 @@ export default function MoodStudio() {
         })}
       </div>
 
-      {/* Mood Results */}
-      <div className={`transition-opacity duration-300 ${selectedMood ? "opacity-100" : "opacity-0"}`}>
-        {selectedMood ? (
-          <div className="rounded-xl bg-canvas p-4 border border-line">
-            <p className="text-sm font-semibold text-ink mb-3">
-              Perfect for your <span className="text-brand">{MOOD_DATA[selectedMood].label}</span> mood:
-            </p>
-            <div className="flex flex-col gap-2">
-              {MOOD_DATA[selectedMood].books.map((book) => (
-                <Link key={book} href="/books" className="flex items-center justify-between rounded-lg bg-white p-3 text-sm text-ink transition hover:bg-brand-soft">
-                  <span>{book}</span>
-                  <ArrowRight className="h-4 w-4 text-brand" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="h-30 rounded-xl border border-dashed border-line flex items-center justify-center text-sm text-muted">
-            Select a mood to see recommendations
-          </div>
-        )}
+
+      <div className="relative flex-1 min-h-45 perspective-[1000px]">
+        <div
+          className={`absolute inset-0 rounded-xl bg-canvas p-4 border border-line transition-all duration-500 ease-out origin-top
+            ${selectedMood
+              ? "opacity-100 rotate-x-0 scale-100 translate-y-0"
+              : "opacity-0 rotate-x-90 scale-95 -translate-y-4 pointer-events-none"
+            }
+          `}
+        >
+          {selectedMood && (
+            <>
+              <p className="text-sm font-semibold text-ink mb-3">
+                Perfect for your <span className="text-brand">{MOOD_DATA[selectedMood].label}</span> mood:
+              </p>
+              <div className="flex flex-col gap-2">
+                {MOOD_DATA[selectedMood].books.map((book) => (
+                  <Link
+                    key={book}
+                    href="/books"
+                    className="flex items-center justify-between rounded-lg bg-white p-3 text-sm text-ink transition hover:bg-brand-soft hover:text-brand-dark border border-transparent hover:border-brand/20"
+                  >
+                    <span>{book}</span>
+                    <ArrowRight className="h-4 w-4 text-brand" />
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
+   
+        <div
+          className={`absolute inset-0 rounded-xl border border-dashed border-line flex items-center justify-center text-sm text-muted transition-all duration-500 ease-in
+            ${selectedMood ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"}
+          `}
+        >
+          Select a mood to see recommendations
+        </div>
       </div>
     </div>
   );
