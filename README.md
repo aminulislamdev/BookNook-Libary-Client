@@ -34,7 +34,7 @@ This repository contains the **BookNook frontend client**. Authentication is han
 
 ## Project Overview
 
-BookNook is a full reading-room experience rather than a simple catalog. The home page combines an image-led hero slider, browsing categories, curated discovery tools, a rotating reading quote, new arrivals, and a clear explanation of the borrowing flow. Signed-in readers get a complete loan lifecycle: add a book, see it on their shelf, edit or delete it, borrow other readers' books, and return them when finished.
+BookNook is a full reading-room experience rather than a simple catalog. The home page combines an image-led hero slider, browsing categories, curated discovery tools, new arrivals, a rotating reading quote, and a reader's wall of community book notes. Signed-in readers get a complete loan lifecycle: add a book, see it on their shelf, edit or delete it, borrow other readers' books, and return them when finished.
 
 The interface is built around a calm white and deep-teal visual system, with Playfair Display headings, Inter body text, rounded cards, subtle motion, accessible dialogs, loading skeletons, and empty states throughout.
 
@@ -51,11 +51,11 @@ The application expects a compatible backend service for books and borrows. That
 - Feature strip highlighting curated shelves, clear availability, and user-added books.
 - Popular category cards for **Fiction**, **Science**, **History**, **Kids**, and **Others**, each linking to the filtered catalog.
 - **Discover Your Next Read** section with:
-  - **Blind Date with a Book** — an animated 3D card that reveals a surprise title from a curated list.
-  - **Reading Mood Studio** — mood-based recommendations for relaxing, thrilling, learning, and escapist reads.
-- Rotating literary quote section that changes every 10 seconds.
+  - **Blind Date with a Book** — a click-to-reveal card that unwraps a surprise title from a curated list of 20 books.
+  - **Reading Mood Studio** — mood-based recommendations for relaxing, thrilling, learning, and escapist reads, revealed with an animated 3D flip.
 - **New Arrivals** grid that fetches the six newest books from the API.
-- Three-step **How Borrowing Works** explainer and a closing call-to-action.
+- Rotating literary quote section that changes every 10 seconds.
+- **The Reader's Wall** — a community section of pinned reader notes about books that stayed with them, followed by a closing call-to-action.
 - Responsive sticky navbar with active-link styling, auth-aware links, a profile dropdown, and a mobile hamburger menu.
 - Footer with quick links, category links, contact details, and social links.
 
@@ -181,15 +181,14 @@ Browser
           ├── /books
           ├── /books/:id
           ├── /borrows
-          ├── /borrows/:id
-          └── /jwt
+          └── /borrows/:id
 ```
 
 - The Next.js app owns authentication, sessions, and the authenticated UI.
 - Better Auth stores users, accounts, and sessions in the `booknook` MongoDB database.
 - The JWT plugin issues tokens used as Bearer credentials when calling the external API.
 - Books and borrows are fetched client-side through `src/lib/api.ts`.
-- The external API base URL defaults to `http://localhost:8000/api` when `NEXT_PUBLIC_API_URL` is not set.
+- The external API base URL defaults to `https://booknook-s-ph.vercel.app/api` when `NEXT_PUBLIC_API_URL` is not set.
 
 ---
 
@@ -245,6 +244,7 @@ booknook-client/
 │   │   │   ├── HowItWorks.tsx
 │   │   │   ├── NewArrivals.tsx
 │   │   │   ├── ReadingNook.tsx
+│   │   │   ├── ReadersWall.tsx
 │   │   │   └── discovery/
 │   │   │       ├── BlindDateCard.tsx
 │   │   │       └── MoodStudio.tsx
@@ -284,7 +284,7 @@ booknook-client/
 │   │   ├── server-token.ts              # Server-side JWT retrieval
 │   │   ├── types.ts                     # Book, Borrow, and response types
 │   │   └── utils.ts                     # Class names, dates, initials, helpers
-│   └── middleware.ts                    # Session-cookie route protection
+│   └── proxy.ts                         # Session-cookie route protection
 ├── .gitignore
 ├── AGENTS.md
 ├── DESIGN.md
@@ -331,7 +331,7 @@ Add the values described in [Environment Variables](#environment-variables). Env
 
 ### 3. Start MongoDB and the BookNook API
 
-The frontend expects the API at `NEXT_PUBLIC_API_URL` (default: `http://localhost:8000/api`). Start the backend separately and confirm its `/books` endpoint is reachable before running the client.
+The frontend reads the API root from `NEXT_PUBLIC_API_URL` (default: `https://booknook-s-ph.vercel.app/api`). To use a local backend, set it to `http://localhost:8000/api` and start that service separately. Confirm its `/books` endpoint is reachable before running the client.
 
 ### 4. Start the development server
 
@@ -353,7 +353,7 @@ The following variables are referenced directly in the source code.
 | `GOOGLE_CLIENT_ID` | Server | For Google auth | Google OAuth client ID. | `...apps.googleusercontent.com` |
 | `GOOGLE_CLIENT_SECRET` | Server | For Google auth | Google OAuth client secret. | `GOCSPX-...` |
 | `NEXT_PUBLIC_APP_URL` | Client | Recommended | Base URL used by the Better Auth browser client. | `http://localhost:3000` |
-| `NEXT_PUBLIC_API_URL` | Client | Recommended | Root URL of the external BookNook API, without a trailing slash. | `http://localhost:8000/api` |
+| `NEXT_PUBLIC_API_URL` | Client | Recommended | Root URL of the external BookNook API, without a trailing slash. | `https://booknook-s-ph.vercel.app/api` |
 | `NEXT_PUBLIC_IMGBB_API_KEY` | Client | For uploads | ImgBB API key used by book-cover and avatar upload components. | Your ImgBB key |
 
 ### Example `.env.local`
@@ -438,13 +438,13 @@ The App Router handler in `src/app/api/auth/[...all]/route.ts` exposes Better Au
 
 ### Route protection
 
-`src/middleware.ts` checks for the Better Auth session cookie and redirects unauthenticated requests to the login page. The configured matcher covers:
+`src/proxy.ts` checks for the Better Auth session cookie and redirects unauthenticated requests to the login page. This uses the Next.js 16 proxy convention (`export async function proxy`). Requests for static book-cover files under `/books/` are allowed through so signed-out visitors can load local cover art; book detail routes remain protected, while the `/books` catalog stays public. The configured matcher covers:
 
 ```text
 /add-book/:path*
 /my-books/:path*
 /my-borrows/:path*
-/books/:path*
+/books/:id
 /profile/:path*
 ```
 
@@ -454,20 +454,19 @@ The `redirect` query parameter preserves the destination after sign-in.
 
 `src/lib/api.ts` wraps `fetch` with:
 
-- The API base URL from `NEXT_PUBLIC_API_URL`
+- The API base URL from `NEXT_PUBLIC_API_URL`, falling back to the deployed BookNook API
 - JSON request/response handling
-- A Bearer token obtained from the Better Auth JWT plugin through `authClient.token()`
+- An optional `auth` flag so public endpoints can skip token retrieval
+- A Bearer token obtained from the Better Auth JWT plugin through `authClient.token()`, cached in memory and `sessionStorage` until shortly before expiry
 - `cache: "no-store"` for fresh server data
 - A typed `ApiError` containing the HTTP status
 - Removal of the stored token when the API responds with `401`
-
-Login and registration also attempt to exchange the signed-in user's details at `POST /jwt`. If that request fails, the flow continues and logs a warning.
 
 ---
 
 ## API Documentation
 
-The client communicates with an external REST API. All paths below are relative to `NEXT_PUBLIC_API_URL` (default `http://localhost:8000/api`).
+The client communicates with an external REST API. All paths below are relative to `NEXT_PUBLIC_API_URL` (default `https://booknook-s-ph.vercel.app/api`).
 
 Requests are sent with:
 
@@ -482,7 +481,6 @@ The API may return either a paginated books object or a plain array; the catalog
 
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
-| `POST` | `/jwt` | Exchange signed-in user details for a backend token |
 | `GET` | `/books` | List, search, filter, sort, and paginate books |
 | `GET` | `/books/:id` | Fetch a single book |
 | `POST` | `/books` | Add a new book |
@@ -491,26 +489,6 @@ The API may return either a paginated books object or a plain array; the catalog
 | `GET` | `/borrows` | Fetch a reader's active and returned loans |
 | `POST` | `/borrows` | Borrow a book |
 | `DELETE` | `/borrows/:id` | Return a book |
-
-### `POST /jwt`
-
-Request:
-
-```json
-{
-  "id": "user-id",
-  "email": "reader@example.com",
-  "name": "Reader Name"
-}
-```
-
-Expected response:
-
-```json
-{
-  "token": "jwt-token"
-}
-```
 
 ### `GET /books`
 
@@ -692,7 +670,9 @@ type Borrow = {
   userName: string;
   userEmail: string;
   borrowDate: string;
+  borrowedAt?: string;
   returnDate: string;
+  dueDate?: string;
   returnedAt: string | null;
   status: "active" | "returned";
   book?: Book | null;
@@ -748,7 +728,7 @@ BookNook uses one consistent visual language across all pages.
 - Reusable primitives for buttons, badges, alerts, modals, confirmation dialogs, forms, skeletons, pagination, empty states, and toasts.
 - Responsive maximum-width container (`max-w-7xl`) with mobile, tablet, and desktop spacing.
 - Consistent 2:3 book-cover aspect ratio and rounded card treatment.
-- Subtle `fade-up`, `fade-in`, and `scale-in` animations, with reduced-motion support.
+- Subtle `fade-up`, `fade-in`, and `scale-in` animations, 3D flip reveals in the Reading Mood Studio, and reduced-motion support.
 - Remote HTTPS images accepted through `next.config.ts`; missing covers fall back to a branded placeholder.
 
 ---
