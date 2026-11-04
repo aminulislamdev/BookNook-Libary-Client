@@ -138,7 +138,7 @@ export default function AllBooksClient() {
 
   return (
     <>
-      <section className="border-b border-line bg-white">
+      <section className="border-b border-line bg-paper">
         <Container className="py-14 sm:py-16">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand">
             The collection
@@ -155,7 +155,7 @@ export default function AllBooksClient() {
 
       <section className="bg-canvas py-10 sm:py-12">
         <Container>
-          <div className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:p-5">
+          <div className="rounded-2xl border border-line bg-paper p-4 shadow-sm sm:p-5">
             <div className="grid gap-4 md:grid-cols-[1fr_240px]">
               <div>
                 <Label htmlFor="book-search" className="sr-only">
@@ -163,7 +163,7 @@ export default function AllBooksClient() {
                 </Label>
                 <div className="relative">
                   <Search
-                    className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+                    className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
                     aria-hidden="true"
                   />
                   <Input
@@ -179,7 +179,7 @@ export default function AllBooksClient() {
                       type="button"
                       onClick={() => setSearch("")}
                       aria-label="Clear search"
-                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-slate-400 transition hover:bg-slate-100 hover:text-ink"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-muted transition hover:bg-surface-muted hover:text-ink"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -222,7 +222,7 @@ export default function AllBooksClient() {
               <button
                 type="button"
                 onClick={clearFilters}
-                className="text-sm font-semibold text-brand transition hover:text-brand-dark"
+                className="text-sm font-semibold text-brand transition hover:text-brand-soft-foreground"
               >
                 Clear filters
               </button>

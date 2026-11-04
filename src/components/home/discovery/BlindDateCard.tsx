@@ -74,7 +74,7 @@ export default function BlindDateCard() {
           <p className="font-display text-3xl font-semibold text-ink mb-6">{randomBook}</p>
           <Link
             href="/books"
-            className="flex items-center gap-2 text-sm font-semibold text-brand hover:text-brand-dark transition"
+            className="flex items-center gap-2 text-sm font-semibold text-brand hover:text-brand-soft-foreground transition"
           >
             Borrow this book <ArrowRight className="h-4 w-4" />
           </Link>

@@ -34,7 +34,7 @@ function BorrowsSkeleton() {
       {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}
-          className="flex gap-4 rounded-2xl border border-line bg-white p-4 shadow-sm"
+          className="flex gap-4 rounded-2xl border border-line bg-paper p-4 shadow-sm"
         >
           <Skeleton className="h-28 w-20 shrink-0 rounded-xl" />
           <div className="flex-1 space-y-3 py-1">
@@ -127,7 +127,7 @@ function MyBorrowsContent() {
 
   return (
     <>
-      <section className="border-b border-line bg-white">
+      <section className="border-b border-line bg-paper">
         <Container className="py-14 sm:py-16">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -164,7 +164,7 @@ function MyBorrowsContent() {
               <p
                 className={cn(
                   "mt-1 font-display text-2xl font-semibold",
-                  overdueCount > 0 ? "text-red-600" : "text-ink",
+                  overdueCount > 0 ? "text-danger" : "text-ink",
                 )}
               >
                 {overdueCount}
@@ -202,7 +202,7 @@ function MyBorrowsContent() {
                     "relative flex items-center gap-2 px-4 py-3 text-sm font-semibold transition",
                     tab === item.key
                       ? "text-brand"
-                      : "text-slate-500 hover:text-ink",
+                      : "text-muted hover:text-ink",
                   )}
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />
@@ -211,8 +211,8 @@ function MyBorrowsContent() {
                     className={cn(
                       "rounded-full px-2 py-0.5 text-xs",
                       tab === item.key
-                        ? "bg-brand-soft text-brand-dark"
-                        : "bg-slate-100 text-slate-500",
+                        ? "bg-brand-soft text-brand-soft-foreground"
+                        : "bg-surface-muted text-muted",
                     )}
                   >
                     {item.count}
@@ -257,9 +257,9 @@ function MyBorrowsContent() {
             ) : (
               <>
                 {/* Desktop Responsive Table */}
-                <div className="hidden md:block overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
+                <div className="hidden md:block overflow-hidden rounded-2xl border border-line bg-paper shadow-sm">
                   <table className="w-full text-left text-sm">
-                    <thead className="border-b border-line bg-slate-50 text-xs font-semibold uppercase tracking-wider text-muted">
+                    <thead className="border-b border-line bg-surface-muted text-xs font-semibold uppercase tracking-wider text-muted">
                       <tr>
                         <th scope="col" className="px-6 py-4">Book</th>
                         <th scope="col" className="px-6 py-4">Borrow Date</th>
@@ -281,10 +281,10 @@ function MyBorrowsContent() {
                         const overdue = isActive && daysLeft < 0;
 
                         return (
-                          <tr key={borrow.id} className="transition hover:bg-slate-50/80">
+                          <tr key={borrow.id} className="transition hover:bg-surface-muted/80">
                             <td className="px-6 py-4">
                               <div className="flex items-center gap-3.5">
-                                <div className="relative h-16 w-11 shrink-0 overflow-hidden rounded-lg border border-line bg-slate-100">
+                                <div className="relative h-16 w-11 shrink-0 overflow-hidden rounded-lg border border-line bg-surface-muted">
                                   <BookCover src={bookImage} alt={bookTitle} sizes="48px" />
                                 </div>
                                 <div>
@@ -304,7 +304,7 @@ function MyBorrowsContent() {
                               <span
                                 className={cn(
                                   "font-medium",
-                                  overdue ? "text-rose-600 font-semibold" : "text-ink"
+                                  overdue ? "text-danger font-semibold" : "text-ink"
                                 )}
                               >
                                 {formatDate(isActive ? returnDate : borrow.returnedAt)}
@@ -362,9 +362,9 @@ function MyBorrowsContent() {
                     return (
                       <article
                         key={borrow.id}
-                        className="flex flex-col gap-4 rounded-2xl border border-line bg-white p-4 shadow-sm sm:flex-row sm:p-5"
+                        className="flex flex-col gap-4 rounded-2xl border border-line bg-paper p-4 shadow-sm sm:flex-row sm:p-5"
                       >
-                        <div className="relative h-32 w-24 shrink-0 self-start overflow-hidden rounded-xl border border-line bg-slate-100">
+                        <div className="relative h-32 w-24 shrink-0 self-start overflow-hidden rounded-xl border border-line bg-surface-muted">
                           <BookCover
                             src={bookImage}
                             alt={bookTitle}
@@ -402,7 +402,7 @@ function MyBorrowsContent() {
                                 <span
                                   className={cn(
                                     "font-semibold",
-                                    overdue ? "text-red-600" : "text-ink",
+                                    overdue ? "text-danger" : "text-ink",
                                   )}
                                 >
                                   {formatDate(
@@ -418,9 +418,9 @@ function MyBorrowsContent() {
                               className={cn(
                                 "inline-flex items-center gap-2 text-sm font-medium",
                                 overdue
-                                  ? "text-red-600"
+                                  ? "text-danger"
                                   : isActive
-                                    ? "text-slate-600"
+                                    ? "text-muted"
                                     : "text-muted",
                               )}
                             >
@@ -439,7 +439,7 @@ function MyBorrowsContent() {
                                 </>
                               ) : (
                                 <>
-                                  <CheckCircle2 className="h-4 w-4 text-emerald-600" aria-hidden="true" />
+                                  <CheckCircle2 className="h-4 w-4 text-success" aria-hidden="true" />
                                   Thanks for returning this one.
                                 </>
                               )}
@@ -493,8 +493,8 @@ function MyBorrowsContent() {
         error={returnError}
       >
         {returning?.book ? (
-          <div className="flex gap-4 rounded-2xl border border-line bg-slate-50 p-3.5">
-            <div className="relative h-24 w-16 shrink-0 overflow-hidden rounded-lg border border-line bg-white">
+          <div className="flex gap-4 rounded-2xl border border-line bg-surface-muted p-3.5">
+            <div className="relative h-24 w-16 shrink-0 overflow-hidden rounded-lg border border-line bg-paper">
               <BookCover
                 src={returning.book.image}
                 alt={returning.book.title}

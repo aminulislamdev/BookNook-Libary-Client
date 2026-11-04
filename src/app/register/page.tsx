@@ -128,7 +128,7 @@ function RegisterForm() {
           Already have an account?{" "}
           <Link
             href={`/login${redirect !== "/" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`}
-            className="font-semibold text-brand transition hover:text-brand-dark"
+            className="font-semibold text-brand transition hover:text-brand-soft-foreground"
           >
             Sign in
           </Link>
@@ -141,7 +141,7 @@ function RegisterForm() {
           variant="outline"
           onClick={handleGoogleSignUp}
           disabled={isGoogleLoading || isSubmitting}
-          className="w-full justify-center gap-3 py-2.5 font-medium text-slate-700 bg-white hover:bg-slate-50 border-line"
+          className="w-full justify-center gap-3 py-2.5 font-medium border-line"
         >
           <GoogleIcon />
           {isGoogleLoading ? "Connecting to Google…" : "Continue with Google"}
@@ -149,7 +149,7 @@ function RegisterForm() {
 
         <div className="relative flex items-center justify-center">
           <div className="w-full border-t border-line" />
-          <span className="absolute bg-white px-3 text-xs uppercase tracking-wider text-muted">
+          <span className="absolute bg-paper px-3 text-xs uppercase tracking-wider text-muted">
             Or register with email
           </span>
         </div>
@@ -214,23 +214,23 @@ function RegisterForm() {
 
           {/* ✅ নতুন পাসওয়ার্ড ভ্যালিডেশন ফিডব্যাক */}
           {password.length > 0 && (
-            <div className="rounded-xl border border-line bg-slate-50 p-3 space-y-1.5 text-xs">
+            <div className="rounded-xl border border-line bg-surface-muted p-3 space-y-1.5 text-xs">
               <div className="flex items-center gap-2">
-                {hasMinLength ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <X className="h-3.5 w-3.5 text-slate-400" />}
-                <span className={hasMinLength ? "text-emerald-700 font-medium" : "text-slate-500"}>At least 6 characters</span>
+                {hasMinLength ? <Check className="h-3.5 w-3.5 text-success" /> : <X className="h-3.5 w-3.5 text-muted" />}
+                <span className={hasMinLength ? "text-success font-medium" : "text-muted"}>At least 6 characters</span>
               </div>
               <div className="flex items-center gap-2">
-                {hasUppercase ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <X className="h-3.5 w-3.5 text-slate-400" />}
-                <span className={hasUppercase ? "text-emerald-700 font-medium" : "text-slate-500"}>Contains 1 uppercase letter</span>
+                {hasUppercase ? <Check className="h-3.5 w-3.5 text-success" /> : <X className="h-3.5 w-3.5 text-muted" />}
+                <span className={hasUppercase ? "text-success font-medium" : "text-muted"}>Contains 1 uppercase letter</span>
               </div>
               <div className="flex items-center gap-2">
-                {hasLowercase ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <X className="h-3.5 w-3.5 text-slate-400" />}
-                <span className={hasLowercase ? "text-emerald-700 font-medium" : "text-slate-500"}>Contains 1 lowercase letter</span>
+                {hasLowercase ? <Check className="h-3.5 w-3.5 text-success" /> : <X className="h-3.5 w-3.5 text-muted" />}
+                <span className={hasLowercase ? "text-success font-medium" : "text-muted"}>Contains 1 lowercase letter</span>
               </div>
               {confirmPassword.length > 0 && (
-                <div className="flex items-center gap-2 pt-1 border-t border-slate-200">
-                  {hasMatch ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <X className="h-3.5 w-3.5 text-rose-500" />}
-                  <span className={hasMatch ? "text-emerald-700 font-medium" : "text-rose-600"}>Passwords match</span>
+                <div className="flex items-center gap-2 pt-1 border-t border-line">
+                  {hasMatch ? <Check className="h-3.5 w-3.5 text-success" /> : <X className="h-3.5 w-3.5 text-danger" />}
+                  <span className={hasMatch ? "text-success font-medium" : "text-danger"}>Passwords match</span>
                 </div>
               )}
             </div>

@@ -49,7 +49,7 @@ export default function MobileMenu({
               className={cn(
                 "rounded-xl px-4 py-3 text-sm font-semibold transition",
                 active
-                  ? "bg-brand-soft text-brand-dark"
+                  ? "bg-brand-soft text-brand-soft-foreground"
                   : "text-muted hover:bg-canvas hover:text-brand", // ✅ text-slate-600 থেকে text-muted
               )}
             >
@@ -61,7 +61,7 @@ export default function MobileMenu({
 
       <div className="mx-auto mt-4 max-w-7xl border-t border-line pt-4">
         {isPending ? (
-          <div className="h-11 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
+          <div className="h-11 animate-pulse rounded-xl bg-surface-muted" />
         ) : user ? (
           <div className="space-y-3">
             {/* ✅ bg-slate-50 থেকে bg-canvas */}
@@ -75,7 +75,7 @@ export default function MobileMenu({
                   className="rounded-full object-cover"
                 />
               ) : (
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-surface text-sm font-semibold text-white">
                   {initials(user.name)}
                 </span>
               )}
@@ -106,7 +106,7 @@ export default function MobileMenu({
               type="button"
               onClick={onLogout}
               disabled={isLoggingOut}
-              className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-red-600 transition hover:bg-red-50 dark:hover:bg-red-950/30 disabled:opacity-60"
+              className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-danger transition hover:bg-danger-surface disabled:opacity-60"
             >
               <LogOut className="h-4 w-4" aria-hidden="true" />
               {isLoggingOut ? "Logging out…" : "Logout"}
@@ -129,7 +129,7 @@ export default function MobileMenu({
               </Link>
               <Link
                 href="/register"
-                className="flex-1 rounded-xl bg-brand py-3 text-center text-sm font-semibold text-white transition hover:bg-brand-dark"
+                className="flex-1 rounded-xl bg-brand-surface py-3 text-center text-sm font-semibold text-white transition hover:bg-brand-dark"
               >
                 Register
               </Link>

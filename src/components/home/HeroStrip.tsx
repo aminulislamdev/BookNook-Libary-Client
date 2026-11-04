@@ -2,7 +2,7 @@ import Container from "@/components/ui/Container";
 
 export default function HeroStrip() {
   return (
-    <div className="border-t border-stone-800 bg-ink/95">
+    <div className="border-t border-stone-800 bg-ink-panel/95">
       <Container>
         <div className="grid gap-5 py-6 font-mono text-[11px] uppercase tracking-[0.18em] text-stone-400 sm:grid-cols-3">
           <p className="flex items-center gap-2">

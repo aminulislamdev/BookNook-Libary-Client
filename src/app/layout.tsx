@@ -24,8 +24,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-screen flex-col bg-canvas font-sans text-ink antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="Light"
+          defaultTheme="system"
+          storageKey="booknook-theme"
           enableSystem
+          enableColorScheme
           disableTransitionOnChange
         >
           <Suspense fallback={null}>

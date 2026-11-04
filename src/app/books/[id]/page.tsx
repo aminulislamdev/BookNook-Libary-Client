@@ -95,7 +95,7 @@ function BookDetailsContent() {
   // the current page mounted so the confirmation modal can show its success state.
   if (loading && !book) {
     return (
-      <section className="bg-white">
+      <section className="bg-paper">
         <DetailsSkeleton />
       </section>
     );
@@ -131,7 +131,7 @@ function BookDetailsContent() {
 
   return (
     <>
-      <section className="bg-white">
+      <section className="bg-paper">
         <Container className="py-10 lg:py-16">
           <Link
             href="/books"
@@ -143,7 +143,7 @@ function BookDetailsContent() {
 
           <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,400px)_1fr] lg:gap-16">
             <div className="self-start lg:sticky lg:top-28">
-              <div className="relative mx-auto aspect-[2/3] w-full max-w-[400px] overflow-hidden rounded-2xl border border-line bg-slate-100 shadow-[0_25px_60px_-30px_rgba(15,23,42,0.45)]">
+              <div className="relative mx-auto aspect-[2/3] w-full max-w-[400px] overflow-hidden rounded-2xl border border-line bg-surface-muted shadow-[0_25px_60px_-30px_rgba(15,23,42,0.45)]">
                 <BookCover
                   src={book.image}
                   alt={`${book.title} by ${book.author}`}
@@ -152,7 +152,7 @@ function BookDetailsContent() {
                 />
               </div>
 
-              <div className="mx-auto mt-5 max-w-[400px] rounded-2xl border border-line bg-white p-5 shadow-sm">
+              <div className="mx-auto mt-5 max-w-[400px] rounded-2xl border border-line bg-paper p-5 shadow-sm">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-semibold text-ink">Availability</p>
                   <Badge
@@ -164,12 +164,12 @@ function BookDetailsContent() {
                   </Badge>
                 </div>
 
-                <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-100">
+                <div className="mt-4 h-2 overflow-hidden rounded-full bg-surface-muted">
                   <div
                     className={
                       isUnavailable
-                        ? "h-full rounded-full bg-red-400"
-                        : "h-full rounded-full bg-brand"
+                        ? "h-full rounded-full bg-danger"
+                        : "h-full rounded-full bg-brand-surface"
                     }
                     style={{ width: `${availabilityPercent}%` }}
                   />
@@ -197,7 +197,7 @@ function BookDetailsContent() {
                 <h2 className="font-display text-2xl font-semibold text-ink">
                   About this book
                 </h2>
-                <p className="mt-3 whitespace-pre-line text-pretty text-base leading-8 text-slate-600">
+                <p className="mt-3 whitespace-pre-line text-pretty text-base leading-8 text-muted">
                   {book.description || "No description has been added for this title yet."}
                 </p>
               </div>
@@ -232,8 +232,8 @@ function BookDetailsContent() {
                 </div>
               </dl>
 
-              <div className="mt-8 flex items-center gap-3 rounded-2xl border border-line bg-white p-4 shadow-sm">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft text-sm font-semibold text-brand-dark">
+              <div className="mt-8 flex items-center gap-3 rounded-2xl border border-line bg-paper p-4 shadow-sm">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft text-sm font-semibold text-brand-soft-foreground">
                   {initials(book.addedBy.name)}
                 </span>
                 <div>
@@ -327,7 +327,7 @@ export default function BookDetailsPage() {
     <AuthGate>
       <Suspense
         fallback={
-          <section className="bg-white">
+          <section className="bg-paper">
             <DetailsSkeleton />
           </section>
         }

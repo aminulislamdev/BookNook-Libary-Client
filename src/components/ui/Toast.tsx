@@ -65,29 +65,29 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               "pointer-events-auto flex items-center justify-between gap-3 rounded-2xl border p-4 shadow-lg backdrop-blur-md transition-all animate-fade-in",
               // ✅ লাইট ও ডার্ক মোডের জন্য কালার
               item.type === "success" &&
-              "border-emerald-200 bg-white/95 text-emerald-950 shadow-emerald-500/10 dark:border-emerald-800 dark:bg-slate-900/95 dark:text-emerald-100",
+              "border-success-border bg-paper/95 text-success shadow-success/10",
               item.type === "error" &&
-              "border-rose-200 bg-white/95 text-rose-950 shadow-rose-500/10 dark:border-rose-800 dark:bg-slate-900/95 dark:text-rose-100",
+              "border-danger-border bg-paper/95 text-danger shadow-danger/10",
               item.type === "info" &&
-              "border-sky-200 bg-white/95 text-sky-950 shadow-sky-500/10 dark:border-sky-800 dark:bg-slate-900/95 dark:text-sky-100"
+              "border-info-border bg-paper/95 text-info shadow-info/10"
             )}
           >
             <div className="flex items-center gap-3">
               {item.type === "success" && (
-                <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-success" aria-hidden="true" />
               )}
               {item.type === "error" && (
-                <AlertCircle className="h-5 w-5 shrink-0 text-rose-600 dark:text-rose-400" aria-hidden="true" />
+                <AlertCircle className="h-5 w-5 shrink-0 text-danger" aria-hidden="true" />
               )}
               {item.type === "info" && (
-                <Info className="h-5 w-5 shrink-0 text-sky-600 dark:text-sky-400" aria-hidden="true" />
+                <Info className="h-5 w-5 shrink-0 text-info" aria-hidden="true" />
               )}
               <p className="text-sm font-medium leading-snug">{item.message}</p>
             </div>
             <button
               type="button"
               onClick={() => removeToast(item.id)}
-              className="rounded-lg p-1 text-slate-400 transition hover:bg-slate-100 hover:text-ink dark:hover:bg-slate-800"
+              className="rounded-lg p-1 text-muted transition hover:bg-surface-muted hover:text-ink"
               aria-label="Close notification"
             >
               <X className="h-4 w-4" />

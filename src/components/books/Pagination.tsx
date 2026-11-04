@@ -42,7 +42,7 @@ export default function Pagination({
         type="button"
         onClick={() => onChange(page - 1)}
         disabled={page <= 1}
-        className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-line bg-white px-3 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand disabled:pointer-events-none disabled:opacity-40"
+        className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-line bg-paper px-3 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand disabled:pointer-events-none disabled:opacity-40"
       >
         <ChevronLeft className="h-4 w-4" aria-hidden="true" />
         Previous
@@ -52,7 +52,7 @@ export default function Pagination({
         entry === "ellipsis" ? (
           <span
             key={`ellipsis-${index}`}
-            className="px-1 text-sm text-slate-400"
+            className="px-1 text-sm text-muted"
             aria-hidden="true"
           >
             …
@@ -67,8 +67,8 @@ export default function Pagination({
             className={cn(
               "h-10 min-w-10 rounded-xl border px-3 text-sm font-semibold transition",
               entry === page
-                ? "border-brand bg-brand text-white"
-                : "border-line bg-white text-ink hover:border-brand/40 hover:text-brand",
+                ? "border-brand-surface bg-brand-surface text-white"
+                : "border-line bg-paper text-ink hover:border-brand/40 hover:text-brand",
             )}
           >
             {entry}
@@ -80,7 +80,7 @@ export default function Pagination({
         type="button"
         onClick={() => onChange(page + 1)}
         disabled={page >= totalPages}
-        className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-line bg-white px-3 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand disabled:pointer-events-none disabled:opacity-40"
+        className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-line bg-paper px-3 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand disabled:pointer-events-none disabled:opacity-40"
       >
         Next
         <ChevronRight className="h-4 w-4" aria-hidden="true" />

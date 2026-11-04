@@ -72,7 +72,7 @@ function ProfileContent() {
 
   return (
     <>
-      <section className="border-b border-line bg-white">
+      <section className="border-b border-line bg-paper">
         <Container className="py-14 sm:py-16">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand">
             Your account
@@ -95,7 +95,7 @@ function ProfileContent() {
           ) : null}
 
           <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
-            <div className="rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-8">
+            <div className="rounded-2xl border border-line bg-paper p-6 shadow-sm sm:p-8">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
                 {user.image ? (
                   <Image
@@ -106,7 +106,7 @@ function ProfileContent() {
                     className="rounded-2xl object-cover ring-4 ring-brand-soft"
                   />
                 ) : (
-                  <span className="flex h-20 w-20 items-center justify-center rounded-2xl bg-brand text-2xl font-semibold text-white ring-4 ring-brand-soft">
+                  <span className="flex h-20 w-20 items-center justify-center rounded-2xl bg-brand-surface text-2xl font-semibold text-white ring-4 ring-brand-soft">
                     {initials(user.name)}
                   </span>
                 )}
@@ -148,7 +148,7 @@ function ProfileContent() {
                 </h3>
                 <div className="mt-4 grid gap-4 sm:grid-cols-3">
                   <div className="rounded-2xl bg-canvas p-4">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-brand shadow-sm">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-paper text-brand shadow-sm">
                       <BookOpen className="h-4 w-4" aria-hidden="true" />
                     </span>
                     <div className="mt-3 font-display text-2xl font-semibold text-ink">
@@ -157,7 +157,7 @@ function ProfileContent() {
                     <p className="text-xs text-muted">Books added</p>
                   </div>
                   <div className="rounded-2xl bg-canvas p-4">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-brand shadow-sm">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-paper text-brand shadow-sm">
                       <BookMarked className="h-4 w-4" aria-hidden="true" />
                     </span>
                     <div className="mt-3 font-display text-2xl font-semibold text-ink">
@@ -166,7 +166,7 @@ function ProfileContent() {
                     <p className="text-xs text-muted">Active borrows</p>
                   </div>
                   <div className="rounded-2xl bg-canvas p-4">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-brand shadow-sm">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-paper text-brand shadow-sm">
                       <Library className="h-4 w-4" aria-hidden="true" />
                     </span>
                     <div className="mt-3 font-display text-2xl font-semibold text-ink">
@@ -178,7 +178,7 @@ function ProfileContent() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-8">
+            <div className="rounded-2xl border border-line bg-paper p-6 shadow-sm sm:p-8">
               <h2 className="font-display text-xl font-semibold text-ink">
                 Quick actions
               </h2>
@@ -189,21 +189,21 @@ function ProfileContent() {
               <div className="mt-6 space-y-3">
                 <Link
                   href="/my-books"
-                  className="flex w-full items-center justify-start gap-2 rounded-xl border border-line bg-white px-4 py-3 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand"
+                  className="flex w-full items-center justify-start gap-2 rounded-xl border border-line bg-paper px-4 py-3 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand"
                 >
                   <Library className="h-4 w-4 text-brand" aria-hidden="true" />
                   Manage My Books
                 </Link>
                 <Link
                   href="/my-borrows"
-                  className="flex w-full items-center justify-start gap-2 rounded-xl border border-line bg-white px-4 py-3 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand"
+                  className="flex w-full items-center justify-start gap-2 rounded-xl border border-line bg-paper px-4 py-3 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand"
                 >
                   <BookMarked className="h-4 w-4 text-brand" aria-hidden="true" />
                   View My Borrows
                 </Link>
                 <Link
                   href="/add-book"
-                  className="flex w-full items-center justify-start gap-2 rounded-xl bg-brand px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark"
+                  className="flex w-full items-center justify-start gap-2 rounded-xl bg-brand-surface px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark"
                 >
                   <BookPlus className="h-4 w-4" aria-hidden="true" />
                   Add a New Book
@@ -211,11 +211,11 @@ function ProfileContent() {
               </div>
 
               <div className="mt-8 rounded-2xl bg-brand-soft p-4">
-                <p className="flex items-center gap-2 text-sm font-semibold text-brand-dark">
+                <p className="flex items-center gap-2 text-sm font-semibold text-brand-soft-foreground">
                   <UserRound className="h-4 w-4" aria-hidden="true" />
                   A small reading note
                 </p>
-                <p className="mt-2 text-sm leading-6 text-brand-dark/80">
+                <p className="mt-2 text-sm leading-6 text-brand-soft-foreground/80">
                   Return books when you are finished so the next reader can
                   find them. Good shelves stay in motion.
                 </p>

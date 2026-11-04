@@ -6,7 +6,7 @@ export default function BookGridSkeleton({ count = 6 }: { count?: number }) {
       {Array.from({ length: count }).map((_, index) => (
         <div
           key={index}
-          className="flex flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-sm"
+          className="flex flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-sm"
         >
           
           <Skeleton className="h-64 w-full rounded-none" />

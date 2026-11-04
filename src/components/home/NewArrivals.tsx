@@ -61,7 +61,7 @@ export default function NewArrivals() {
             // ✅ Button-এর বদলে Link
             <Link
               href="/books"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-line bg-paper px-5 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
             >
               See All Books
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -84,7 +84,7 @@ export default function NewArrivals() {
               </Button>
             </Alert>
           ) : books.length === 0 ? (
-            <div className="rounded-3xl border border-dashed border-line bg-white p-12 text-center">
+            <div className="rounded-3xl border border-dashed border-line bg-paper p-12 text-center">
               <p className="font-display text-2xl font-semibold text-ink">
                 The shelves are waiting
               </p>
@@ -94,7 +94,7 @@ export default function NewArrivals() {
               {/* ✅ Button-এর বদলে Link */}
               <Link
                 href="/add-book"
-                className="mt-5 inline-flex h-11 items-center justify-center rounded-xl bg-brand px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                className="mt-5 inline-flex h-11 items-center justify-center rounded-xl bg-brand-surface px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
               >
                 Add a Book
               </Link>

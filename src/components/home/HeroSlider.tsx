@@ -15,7 +15,7 @@ import "swiper/css/effect-fade";
 
 export default function HeroSlider() {
   return (
-    <section className="relative overflow-hidden bg-ink">
+    <section className="relative overflow-hidden bg-ink-panel">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         effect="fade"
@@ -74,7 +74,7 @@ function SlideContent({
             {/* ✅ Button এর বদলে Link */}
             <Link
               href="/books"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-brand px-6 text-base font-semibold text-white shadow-sm transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-surface px-6 text-base font-semibold text-white shadow-sm transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-panel"
             >
               Browse Books
               <ArrowRight className="h-4 w-4" aria-hidden="true" />

@@ -214,7 +214,7 @@ export default function BookForm({
       >
         <div className="space-y-5">
           {/* User info (Read-only as required) */}
-          <div className="grid gap-5 sm:grid-cols-2 rounded-xl bg-slate-50 p-4 border border-line">
+          <div className="grid gap-5 sm:grid-cols-2 rounded-xl bg-surface-muted p-4 border border-line">
             <div>
               <Label htmlFor="user-name" className="text-xs text-muted">
                 Added By (User Name)
@@ -224,7 +224,7 @@ export default function BookForm({
                 value={user.name}
                 readOnly
                 disabled
-                className="bg-white/80 cursor-not-allowed text-sm font-medium"
+                className="cursor-not-allowed text-sm font-medium"
               />
             </div>
             <div>
@@ -236,7 +236,7 @@ export default function BookForm({
                 value={user.email}
                 readOnly
                 disabled
-                className="bg-white/80 cursor-not-allowed text-sm font-medium"
+                className="cursor-not-allowed text-sm font-medium"
               />
             </div>
           </div>
@@ -334,7 +334,7 @@ export default function BookForm({
             <div className="mt-1.5 flex gap-2">
               <div className="relative flex-1">
                 <ImageIcon
-                  className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+                  className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
                   aria-hidden="true"
                 />
                 <Input
@@ -370,7 +370,7 @@ export default function BookForm({
 
           <FieldError>{fieldError}</FieldError>
           {error ? (
-            <div className="rounded-xl border border-red-200 bg-red-50 px-3.5 py-3 text-sm text-red-700" role="alert">
+            <div className="rounded-xl border border-danger-border bg-danger-surface px-3.5 py-3 text-sm text-danger" role="alert">
               {error}
             </div>
           ) : null}
@@ -383,7 +383,7 @@ export default function BookForm({
             ) : (
               <Link
                 href="/books"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 h-11 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-paper px-5 h-11 text-sm font-semibold text-ink transition hover:border-brand/40 hover:text-brand"
               >
                 Cancel
               </Link>
@@ -404,8 +404,8 @@ export default function BookForm({
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-muted">
               Live preview
             </p>
-            <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
-              <div className="aspect-2/3 bg-slate-100">
+            <div className="overflow-hidden rounded-2xl border border-line bg-paper shadow-sm">
+              <div className="aspect-2/3 bg-surface-muted">
                 <BookCover
                   src={values.image}
                   alt={previewBook.title}

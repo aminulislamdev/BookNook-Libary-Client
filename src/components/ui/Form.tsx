@@ -8,7 +8,7 @@ import type {
 import { cn } from "@/lib/utils";
 
 const fieldBase =
-  "w-full rounded-xl border border-line bg-white px-4 text-sm text-ink shadow-sm transition placeholder:text-slate-400 focus:border-brand/50 focus:outline-none focus:ring-4 focus:ring-brand/10 disabled:cursor-not-allowed disabled:bg-slate-50";
+  "w-full rounded-xl border border-line bg-paper px-4 text-sm text-ink shadow-sm transition placeholder:text-muted focus:border-brand/50 focus:outline-none focus:ring-4 focus:ring-brand/10 disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-muted";
 
 export function Label({
   className,
@@ -56,7 +56,7 @@ export function Select({
       </select>
       <ChevronDown
         aria-hidden="true"
-        className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+        className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
       />
     </div>
   );
@@ -65,7 +65,7 @@ export function Select({
 export function FieldError({ children }: { children?: string }) {
   if (!children) return null;
   return (
-    <p className="mt-1.5 text-sm text-red-600" role="alert">
+    <p className="mt-1.5 text-sm text-danger" role="alert">
       {children}
     </p>
   );

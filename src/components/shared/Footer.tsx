@@ -45,7 +45,7 @@ export default function Footer() {
           <div className="max-w-sm">
      
             <Link href="/" className="flex items-center gap-2.5 group" aria-label="BookNook home">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-brand to-brand-dark text-white shadow-md shadow-brand/20 transition-transform group-hover:scale-105">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-brand-surface to-brand-dark text-white shadow-md shadow-brand-surface/20 transition-transform group-hover:scale-105">
                 <BookOpen className="h-5 w-5" aria-hidden="true" />
               </span>
               <span className="font-display text-2xl font-semibold tracking-tight text-ink">
@@ -63,7 +63,7 @@ export default function Footer() {
                 href="https://github.com/aminulislamdev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-white text-muted shadow-sm transition hover:-translate-y-0.5 hover:border-brand/30 hover:text-brand hover:shadow-md"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-paper text-muted shadow-sm transition hover:-translate-y-0.5 hover:border-brand/30 hover:text-brand hover:shadow-md"
                 aria-label="BookNook GitHub"
               >
                 <GithubIcon className="h-5 w-5" />
@@ -72,7 +72,7 @@ export default function Footer() {
                 href="https://www.linkedin.com/in/aminulislamjs/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-white text-muted shadow-sm transition hover:-translate-y-0.5 hover:border-brand/30 hover:text-brand hover:shadow-md"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-paper text-muted shadow-sm transition hover:-translate-y-0.5 hover:border-brand/30 hover:text-brand hover:shadow-md"
                 aria-label="BookNook LinkedIn"
               >
                 <LinkedInIcon className="h-5 w-5" />

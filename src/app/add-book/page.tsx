@@ -16,7 +16,7 @@ function AddBookContent() {
 
   return (
     <>
-      <section className="border-b border-line bg-white">
+      <section className="border-b border-line bg-paper">
         <Container className="py-14 sm:py-16">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -31,7 +31,7 @@ function AddBookContent() {
                 remove it later from My Books.
               </p>
             </div>
-            <span className="inline-flex items-center gap-2 self-start rounded-full bg-brand-soft px-3.5 py-2 text-xs font-semibold text-brand-dark sm:self-auto">
+            <span className="inline-flex items-center gap-2 self-start rounded-full bg-brand-soft px-3.5 py-2 text-xs font-semibold text-brand-soft-foreground sm:self-auto">
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
               Every shelf starts with one book
             </span>
@@ -41,9 +41,9 @@ function AddBookContent() {
 
       <section className="bg-canvas py-10 sm:py-12">
         <Container>
-          <div className="rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-8">
+          <div className="rounded-2xl border border-line bg-paper p-6 shadow-sm sm:p-8">
             <div className="mb-7 flex items-center gap-3 border-b border-line pb-5">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand-soft-foreground">
                 <BookPlus className="h-5 w-5" aria-hidden="true" />
               </span>
               <div>

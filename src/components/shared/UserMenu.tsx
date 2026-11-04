@@ -64,7 +64,7 @@ export default function UserMenu({ user }: UserMenuProps) {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="flex items-center gap-2 rounded-full border border-line p-1 pr-2 transition hover:border-brand/30 hover:bg-slate-50"
+        className="flex items-center gap-2 rounded-full border border-line p-1 pr-2 transition hover:border-brand/30 hover:bg-surface-muted"
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Open profile menu"
@@ -77,13 +77,13 @@ export default function UserMenu({ user }: UserMenuProps) {
             className="h-8 w-8 rounded-full object-cover"
           />
         ) : (
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-surface text-xs font-semibold text-white">
             {initials(user.name)}
           </span>
         )}
         <ChevronDown
           className={cn(
-            "h-4 w-4 text-slate-500 transition-transform duration-200",
+            "h-4 w-4 text-muted transition-transform duration-200",
             open && "rotate-180",
           )}
           aria-hidden="true"
@@ -94,7 +94,7 @@ export default function UserMenu({ user }: UserMenuProps) {
         <div
           role="menu"
           aria-label="Profile menu"
-          className="absolute right-0 z-50 mt-3 w-64 overflow-hidden rounded-2xl border border-line bg-white shadow-xl animate-scale-in"
+          className="absolute right-0 z-50 mt-3 w-64 overflow-hidden rounded-2xl border border-line bg-paper shadow-xl animate-scale-in"
         >
           <div className="border-b border-line px-4 py-4">
             <p className="truncate text-sm font-semibold text-ink">{user.name}</p>
@@ -106,7 +106,7 @@ export default function UserMenu({ user }: UserMenuProps) {
               href="/profile"
               role="menuitem"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-brand-soft hover:text-brand-dark"
+              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-ink transition hover:bg-brand-soft hover:text-brand-soft-foreground"
             >
               <UserRound className="h-4 w-4" aria-hidden="true" />
               My Profile
@@ -117,7 +117,7 @@ export default function UserMenu({ user }: UserMenuProps) {
               role="menuitem"
               onClick={handleLogout}
               disabled={isLoggingOut}
-              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-60"
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-danger transition hover:bg-danger-surface disabled:opacity-60"
             >
               <LogOut className="h-4 w-4" aria-hidden="true" />
               {isLoggingOut ? "Logging out…" : "Logout"}

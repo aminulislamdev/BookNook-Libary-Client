@@ -92,7 +92,7 @@ function MyBooksContent() {
 
   return (
     <>
-      <section className="border-b border-line bg-white">
+      <section className="border-b border-line bg-paper">
         <Container className="py-14 sm:py-16">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -110,7 +110,7 @@ function MyBooksContent() {
             {/* ✅ Button এর বদলে Link */}
             <Link
               href="/add-book"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-brand px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-brand-surface px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
             >
               <BookPlus className="h-4 w-4" aria-hidden="true" />
               Add a Book
@@ -170,7 +170,7 @@ function MyBooksContent() {
                 // ✅ Button এর বদলে Link
                 <Link
                   href="/add-book"
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-brand px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-brand-surface px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
                 >
                   <BookPlus className="h-4 w-4" aria-hidden="true" />
                   Add Your First Book
@@ -179,9 +179,9 @@ function MyBooksContent() {
             />
           ) : (
             <>
-              <div className="hidden md:block overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
+              <div className="hidden md:block overflow-hidden rounded-2xl border border-line bg-paper shadow-sm">
                 <table className="w-full text-left text-sm">
-                  <thead className="border-b border-line bg-slate-50 text-xs font-semibold uppercase tracking-wider text-muted">
+                  <thead className="border-b border-line bg-surface-muted text-xs font-semibold uppercase tracking-wider text-muted">
                     <tr>
                       <th scope="col" className="px-6 py-4">Book</th>
                       <th scope="col" className="px-6 py-4">Category</th>
@@ -192,10 +192,10 @@ function MyBooksContent() {
                   </thead>
                   <tbody className="divide-y divide-line">
                     {books.map((book) => (
-                      <tr key={book.id} className="transition hover:bg-slate-50/80">
+                      <tr key={book.id} className="transition hover:bg-surface-muted/80">
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3.5">
-                            <div className="relative h-16 w-11 shrink-0 overflow-hidden rounded-lg border border-line bg-slate-100">
+                            <div className="relative h-16 w-11 shrink-0 overflow-hidden rounded-lg border border-line bg-surface-muted">
                               <BookCover src={book.image} alt={book.title} sizes="48px" />
                             </div>
                             <div>
@@ -216,10 +216,10 @@ function MyBooksContent() {
                           <span
                             className={
                               book.availableCopies === 0
-                                ? "font-semibold text-rose-600"
+                                ? "font-semibold text-danger"
                                 : book.availableCopies <= 2
-                                  ? "font-semibold text-amber-600"
-                                  : "font-semibold text-emerald-600"
+                                  ? "font-semibold text-warning"
+                                  : "font-semibold text-success"
                             }
                           >
                             {book.availableCopies} left
@@ -230,7 +230,7 @@ function MyBooksContent() {
                             {/* ✅ Button এর বদলে Link */}
                             <Link
                               href={`/books/${book.id}`}
-                              className="inline-flex h-9 items-center justify-center rounded-xl bg-brand-soft px-3.5 text-sm font-semibold text-brand-dark transition hover:bg-teal-100/80"
+                              className="inline-flex h-9 items-center justify-center rounded-xl bg-brand-soft px-3.5 text-sm font-semibold text-brand-soft-foreground transition hover:bg-brand-soft-hover"
                             >
                               View
                             </Link>
@@ -252,7 +252,7 @@ function MyBooksContent() {
                                 setDeleting(book);
                               }}
                               aria-label={`Delete ${book.title}`}
-                              className="text-red-600 hover:border-red-200 hover:text-red-700"
+                              className="text-danger hover:border-danger-border hover:text-danger"
                             >
                               <Trash2 className="h-4 w-4" aria-hidden="true" />
                             </Button>
@@ -274,7 +274,7 @@ function MyBooksContent() {
                         {/* ✅ Button এর বদলে Link */}
                         <Link
                           href={`/books/${book.id}`}
-                          className="flex h-9 flex-1 items-center justify-center rounded-xl bg-brand-soft px-3.5 text-sm font-semibold text-brand-dark transition hover:bg-teal-100/80"
+                          className="flex h-9 flex-1 items-center justify-center rounded-xl bg-brand-soft px-3.5 text-sm font-semibold text-brand-soft-foreground transition hover:bg-brand-soft-hover"
                         >
                           View
                         </Link>
@@ -296,7 +296,7 @@ function MyBooksContent() {
                             setDeleting(book);
                           }}
                           aria-label={`Delete ${book.title}`}
-                          className="text-red-600 hover:border-red-200 hover:text-red-700"
+                          className="text-danger hover:border-danger-border hover:text-danger"
                         >
                           <Trash2 className="h-4 w-4" aria-hidden="true" />
                         </Button>
@@ -353,8 +353,8 @@ function MyBooksContent() {
         error={deleteError}
       >
         {deleting ? (
-          <div className="flex gap-4 rounded-2xl border border-line bg-slate-50 p-3.5">
-            <div className="relative h-24 w-16 shrink-0 overflow-hidden rounded-lg border border-line bg-white">
+          <div className="flex gap-4 rounded-2xl border border-line bg-surface-muted p-3.5">
+            <div className="relative h-24 w-16 shrink-0 overflow-hidden rounded-lg border border-line bg-paper">
               <BookCover
                 src={deleting.image}
                 alt={deleting.title}

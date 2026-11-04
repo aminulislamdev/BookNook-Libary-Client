@@ -14,8 +14,8 @@ export default function GlobalError({
   return (
     <section className="bg-canvas py-20 sm:py-28">
       <Container>
-        <div className="mx-auto max-w-xl rounded-3xl border border-line bg-white p-8 text-center shadow-sm sm:p-12">
-          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600">
+        <div className="mx-auto max-w-xl rounded-3xl border border-line bg-paper p-8 text-center shadow-sm sm:p-12">
+          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-danger-surface text-danger">
             <AlertCircle className="h-7 w-7" aria-hidden="true" />
           </span>
           <h1 className="mt-5 font-display text-3xl font-semibold tracking-tight text-ink">

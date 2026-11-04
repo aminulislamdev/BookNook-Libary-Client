@@ -28,7 +28,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="border-y border-line bg-white py-20 sm:py-24">
+    <section id="how-it-works" className="border-y border-line bg-paper py-20 sm:py-24">
       <Container>
         <SectionHeading
           eyebrow="Simple by design"
@@ -48,13 +48,13 @@ export default function HowItWorks() {
             return (
               <article
                 key={step.number}
-                className="relative rounded-2xl border border-line bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="relative rounded-2xl border border-line bg-paper p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="flex items-start justify-between">
-                  <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-white shadow-sm shadow-teal-900/20">
+                  <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-surface text-white shadow-sm shadow-brand-surface/25">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
-                  <span className="font-display text-4xl font-semibold text-teal-300">
+                  <span className="font-display text-4xl font-semibold text-brand/30">
                     {step.number}
                   </span>
                 </div>

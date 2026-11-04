@@ -82,7 +82,7 @@ export default function Modal({
       <button
         type="button"
         aria-label="Close dialog"
-        className="absolute inset-0 cursor-default bg-slate-900/45 backdrop-blur-sm animate-fade-in"
+        className="absolute inset-0 cursor-default bg-overlay backdrop-blur-sm animate-fade-in"
         onClick={onClose}
       />
       <div
@@ -92,7 +92,7 @@ export default function Modal({
         aria-labelledby={titleId}
         aria-describedby={description ? descriptionId : undefined}
         className={cn(
-          "relative max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl animate-scale-in sm:p-7",
+          "relative max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-3xl border border-line bg-paper p-6 shadow-2xl animate-scale-in sm:p-7",
           className,
         )}
       >
@@ -101,7 +101,7 @@ export default function Modal({
           type="button"
           onClick={onClose}
           aria-label="Close dialog"
-          className="absolute right-4 top-4 rounded-full p-2 text-slate-400 transition hover:bg-slate-100 hover:text-ink"
+          className="absolute right-4 top-4 rounded-full p-2 text-muted transition hover:bg-surface-muted hover:text-ink"
         >
           <X className="h-5 w-5" />
         </button>

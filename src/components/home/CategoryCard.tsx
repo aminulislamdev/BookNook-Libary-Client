@@ -17,31 +17,31 @@ const meta: Record<
     icon: BookOpen,
     description: "Stories, novels, and unforgettable characters.",
     spine: "bg-teal-700",
-    soft: "bg-teal-50",
+    soft: "bg-cat-fiction-soft",
   },
   Science: {
     icon: Atom,
     description: "Big ideas, discoveries, and the way things work.",
     spine: "bg-amber-700",
-    soft: "bg-amber-50",
+    soft: "bg-cat-science-soft",
   },
   History: {
     icon: Landmark,
     description: "The people and moments that shaped our world.",
     spine: "bg-rose-800",
-    soft: "bg-rose-50",
+    soft: "bg-cat-history-soft",
   },
   Kids: {
     icon: Baby,
     description: "Bright, playful reads for younger book lovers.",
     spine: "bg-indigo-700",
-    soft: "bg-indigo-50",
+    soft: "bg-cat-kids-soft",
   },
   Others: {
     icon: Library,
     description: "Memoir, business, wellbeing, and everything else.",
     spine: "bg-stone-700",
-    soft: "bg-stone-50",
+    soft: "bg-cat-others-soft",
   },
 };
 
@@ -71,7 +71,7 @@ export default function CategoryCard({
             <Icon className="h-5 w-5" aria-hidden="true" />
           </span>
           <ArrowUpRight
-            className="h-4 w-4 text-stone-400 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+            className="h-4 w-4 text-muted transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
             aria-hidden="true"
           />
         </div>

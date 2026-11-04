@@ -10,7 +10,7 @@ const reviews = [
     quote: "The Alchemist taught me that the universe conspires in helping you achieve your dreams.",
     reader: "Aminul Islam",
     book: "The Alchemist",
-    color: "bg-amber-50 border-amber-200",
+    color: "bg-warning-surface border-warning-border",
     rotate: "-rotate-2",
   },
   {
@@ -18,7 +18,7 @@ const reviews = [
     quote: "A must-read for anyone who loves sci-fi. The world-building in Dune is unmatched.",
     reader: "Sara Khan",
     book: "Dune",
-    color: "bg-teal-50 border-teal-200",
+    color: "bg-brand-soft border-line",
     rotate: "rotate-1",
   },
   {
@@ -26,7 +26,7 @@ const reviews = [
     quote: "I couldn't put this down! The Silent Patient has the best plot twist I've ever read.",
     reader: "Rahat Hossain",
     book: "The Silent Patient",
-    color: "bg-rose-50 border-rose-200",
+    color: "bg-danger-surface border-danger-border",
     rotate: "-rotate-1",
   },
 ];
@@ -52,7 +52,7 @@ export default function ReadersWall() {
               className={`relative w-full max-w-xs rounded-sm border p-6 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-md ${review.color} ${review.rotate}`}
             >
               {/* পিন বা টেপ ইফেক্ট */}
-              <div className="absolute -top-3 left-1/2 h-6 w-16 -translate-x-1/2 rotate-3 bg-white/60 shadow-sm backdrop-blur-sm" />
+              <div className="absolute -top-3 left-1/2 h-6 w-16 -translate-x-1/2 rotate-3 bg-white/60 shadow-sm backdrop-blur-sm dark:bg-white/10" />
 
               <div className="flex gap-1 mb-4 text-amber-500">
                 {[...Array(5)].map((_, i) => (
@@ -60,13 +60,13 @@ export default function ReadersWall() {
                 ))}
               </div>
 
-              <Quote className="h-6 w-6 text-black/10 mb-2" />
+              <Quote className="h-6 w-6 text-ink/10 mb-2" />
 
               <p className="text-sm leading-relaxed text-ink/80 italic">
                 &ldquo;{review.quote}&rdquo;
               </p>
 
-              <div className="mt-6 flex flex-col border-t border-black/5 pt-4">
+              <div className="mt-6 flex flex-col border-t border-line pt-4">
                 <span className="font-display font-semibold text-ink text-sm">
                   — {review.reader}
                 </span>

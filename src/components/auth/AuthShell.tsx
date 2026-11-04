@@ -40,7 +40,7 @@ export default function AuthShell({
        
           <div className="flex items-center justify-center p-6 sm:p-10 lg:p-12">
             <div className="mx-auto w-full max-w-md">
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand">
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand-soft-foreground">
                 <BookOpen className="h-6 w-6" aria-hidden="true" />
               </span>
               <h1 className="mt-6 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">

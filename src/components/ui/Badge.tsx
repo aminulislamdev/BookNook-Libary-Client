@@ -4,11 +4,11 @@ import { cn } from "@/lib/utils";
 type BadgeVariant = "teal" | "slate" | "amber" | "red" | "green";
 
 const variants: Record<BadgeVariant, string> = {
-  teal: "bg-brand-soft text-brand-dark",
-  slate: "bg-slate-100 text-slate-600",
-  amber: "bg-amber-50 text-amber-700",
-  red: "bg-red-50 text-red-700",
-  green: "bg-emerald-50 text-emerald-700",
+  teal: "bg-brand-soft text-brand-soft-foreground",
+  slate: "bg-surface-muted text-muted",
+  amber: "bg-warning-surface text-warning",
+  red: "bg-danger-surface text-danger",
+  green: "bg-success-surface text-success",
 };
 
 export default function Badge({

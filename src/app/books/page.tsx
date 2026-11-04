@@ -12,7 +12,7 @@ export const metadata = {
 function BooksFallback() {
   return (
     <>
-      <section className="border-b border-line bg-white">
+      <section className="border-b border-line bg-paper">
         <Container className="py-14 sm:py-16">
           <Skeleton className="h-3 w-28" />
           <Skeleton className="mt-4 h-12 w-96 max-w-full" />

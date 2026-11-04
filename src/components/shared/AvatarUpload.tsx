@@ -55,11 +55,11 @@ export default function AvatarUpload({
   return (
     <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
       {/* প্রিভিউ */}
-      <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-line bg-slate-100">
+      <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-line bg-surface-muted">
         {image ? (
           <Image src={image} alt="Profile" height={80} width={80} className=" object-cover" />
         ) : (
-          <User className="h-8 w-8 text-slate-400" />
+          <User className="h-8 w-8 text-muted" />
         )}
       </div>
 
@@ -68,7 +68,7 @@ export default function AvatarUpload({
         <Label htmlFor="profile-image">Photo URL</Label>
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <ImageIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <ImageIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
             <Input
               id="profile-image"
               value={image}

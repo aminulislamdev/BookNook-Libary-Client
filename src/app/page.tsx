@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <main>
     
-      <Suspense fallback={<div className="h-125 w-full bg-ink animate-pulse" />}>
+      <Suspense fallback={<div className="h-125 w-full bg-ink-panel animate-pulse" />}>
         <HeroSlider />
       </Suspense>
 

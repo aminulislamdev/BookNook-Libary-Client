@@ -112,7 +112,7 @@ function LoginForm() {
           New to BookNook?{" "}
           <Link
             href={`/register${redirect !== "/" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`}
-            className="font-semibold text-brand transition hover:text-brand-dark"
+            className="font-semibold text-brand transition hover:text-brand-soft-foreground"
           >
             Create an account
           </Link>
@@ -125,7 +125,7 @@ function LoginForm() {
           variant="outline"
           onClick={handleGoogleSignIn}
           disabled={isGoogleLoading || isSubmitting}
-          className="w-full justify-center gap-3 py-2.5 font-medium text-slate-700 bg-white hover:bg-slate-50 border-line"
+          className="w-full justify-center gap-3 py-2.5 font-medium border-line"
         >
           <GoogleIcon />
           {isGoogleLoading ? "Connecting to Google…" : "Continue with Google"}
@@ -133,7 +133,7 @@ function LoginForm() {
 
         <div className="relative flex items-center justify-center">
           <div className="w-full border-t border-line" />
-          <span className="absolute bg-white px-3 text-xs uppercase tracking-wider text-muted">
+          <span className="absolute bg-paper px-3 text-xs uppercase tracking-wider text-muted">
             Or sign in with email
           </span>
         </div>

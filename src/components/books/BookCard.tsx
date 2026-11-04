@@ -13,9 +13,9 @@ export function availabilityText(book: Book) {
 }
 
 export function availabilityTone(book: Book) {
-  if (book.availableCopies === 0) return "text-red-600";
-  if (book.availableCopies <= 2) return "text-amber-600";
-  return "text-emerald-600";
+  if (book.availableCopies === 0) return "text-danger";
+  if (book.availableCopies <= 2) return "text-warning";
+  return "text-success";
 }
 
 export default function BookCard({
@@ -30,13 +30,13 @@ export default function BookCard({
   return (
     <article
       className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_-24px_rgba(15,23,42,0.28)]",
+        "group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_-24px_rgba(15,23,42,0.28)]",
         className,
       )}
     >
       <Link
         href={`/books/${book.id}`}
-        className="relative block h-65 w-full overflow-hidden bg-slate-100"
+        className="relative block h-65 w-full overflow-hidden bg-surface-muted"
         aria-label={`View details for ${book.title}`}
       >
         <BookCover
@@ -45,7 +45,7 @@ export default function BookCard({
           className="transition duration-500 group-hover:scale-[1.035]"
         />
         <div className="absolute left-3 top-3">
-          <Badge variant="teal" className="bg-white/95 shadow-sm backdrop-blur">
+          <Badge variant="teal" className="bg-paper/95 shadow-sm backdrop-blur">
             {book.category}
           </Badge>
         </div>
@@ -68,10 +68,10 @@ export default function BookCard({
             className={cn(
               "h-1.5 w-1.5 rounded-full",
               book.availableCopies === 0
-                ? "bg-red-500"
+                ? "bg-danger"
                 : book.availableCopies <= 2
-                  ? "bg-amber-500"
-                  : "bg-emerald-500",
+                  ? "bg-warning"
+                  : "bg-success",
             )}
           />
           <span className={availabilityTone(book)}>{availabilityText(book)}</span>
@@ -81,7 +81,7 @@ export default function BookCard({
           {actions ?? (
             <Link
               href={`/books/${book.id}`}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-soft py-2.5 text-sm font-semibold text-brand-dark transition hover:bg-teal-100/80"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-soft py-2.5 text-sm font-semibold text-brand-soft-foreground transition hover:bg-brand-soft-hover"
             >
               View Details
               <ArrowRight className="h-4 w-4" aria-hidden="true" />

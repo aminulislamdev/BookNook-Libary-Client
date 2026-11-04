@@ -98,7 +98,7 @@ export default function BorrowModal({
     >
       {success ? (
         <div className="text-center py-2">
-          <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+          <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-success-surface text-success">
             <CheckCircle2 className="h-8 w-8" aria-hidden="true" />
           </span>
           <p className="mt-5 font-display text-xl font-semibold text-ink">
@@ -120,8 +120,8 @@ export default function BorrowModal({
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="flex gap-4 rounded-2xl border border-line bg-slate-50 p-3.5">
-            <div className="relative h-24 w-16 shrink-0 overflow-hidden rounded-lg border border-line bg-white">
+          <div className="flex gap-4 rounded-2xl border border-line bg-surface-muted p-3.5">
+            <div className="relative h-24 w-16 shrink-0 overflow-hidden rounded-lg border border-line bg-paper">
               <BookCover
                 src={book.image}
                 alt={`${book.title} by ${book.author}`}
@@ -140,7 +140,7 @@ export default function BorrowModal({
           </div>
 
           {/* User Name & User Email (read-only) */}
-          <div className="grid gap-4 sm:grid-cols-2 rounded-xl bg-slate-50 p-3.5 border border-line">
+          <div className="grid gap-4 sm:grid-cols-2 rounded-xl bg-surface-muted p-3.5 border border-line">
             <div>
               <Label htmlFor="borrower-name" className="text-xs text-muted">
                 User Name
@@ -150,7 +150,7 @@ export default function BorrowModal({
                 value={user.name}
                 readOnly
                 disabled
-                className="bg-white/80 cursor-not-allowed text-sm font-medium"
+                className="cursor-not-allowed text-sm font-medium"
               />
             </div>
             <div>
@@ -162,7 +162,7 @@ export default function BorrowModal({
                 value={user.email}
                 readOnly
                 disabled
-                className="bg-white/80 cursor-not-allowed text-sm font-medium"
+                className="cursor-not-allowed text-sm font-medium"
               />
             </div>
           </div>

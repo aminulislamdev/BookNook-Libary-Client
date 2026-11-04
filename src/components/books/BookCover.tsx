@@ -27,11 +27,11 @@ export default function BookCover({
   const showFallback = !src || failed;
 
   return (
-    <div className="relative h-full w-full overflow-hidden bg-slate-100">
+    <div className="relative h-full w-full overflow-hidden bg-surface-muted">
       {showFallback ? (
-        <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-[linear-gradient(145deg,#ecfdf9_0%,#f1f5f9_100%)] px-4 text-center text-brand">
+        <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-linear-to-br from-brand-soft to-surface-muted px-4 text-center text-brand-soft-foreground">
           <BookOpen className="h-8 w-8" aria-hidden="true" />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-dark/70">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-soft-foreground/70">
             BookNook
           </span>
         </div>

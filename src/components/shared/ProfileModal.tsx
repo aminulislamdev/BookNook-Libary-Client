@@ -86,7 +86,7 @@ function ProfileForm({
 
       <div>
         <Label>Email Address</Label>
-        <Input value={user?.email || ""} disabled readOnly className="cursor-not-allowed bg-slate-50" />
+        <Input value={user?.email || ""} disabled readOnly className="cursor-not-allowed bg-surface-muted" />
         <p className="mt-1.5 text-xs text-muted">Email cannot be changed.</p>
       </div>
 

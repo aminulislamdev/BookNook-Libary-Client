@@ -8,12 +8,18 @@ const config: Record<
   AlertVariant,
   { classes: string; icon: typeof AlertCircle }
 > = {
-  error: { classes: "border-red-200 bg-red-50 text-red-700", icon: AlertCircle },
+  error: {
+    classes: "border-danger-border bg-danger-surface text-danger",
+    icon: AlertCircle,
+  },
   success: {
-    classes: "border-emerald-200 bg-emerald-50 text-emerald-800",
+    classes: "border-success-border bg-success-surface text-success",
     icon: CheckCircle2,
   },
-  info: { classes: "border-teal-200 bg-brand-soft text-brand-dark", icon: Info },
+  info: {
+    classes: "border-info-border bg-info-surface text-info",
+    icon: Info,
+  },
 };
 
 export default function Alert({

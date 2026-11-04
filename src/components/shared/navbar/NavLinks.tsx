@@ -25,7 +25,7 @@ export default function NavLinks({ links }: NavLinksProps) {
             aria-current={active ? "page" : undefined}
             className={cn(
               "relative py-2 text-sm font-medium transition-colors",
-              active ? "text-brand" : "text-slate-600 hover:text-brand",
+              active ? "text-brand" : "text-muted hover:text-brand",
             )}
           >
             {link.name}

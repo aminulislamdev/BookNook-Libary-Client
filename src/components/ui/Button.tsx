@@ -22,11 +22,11 @@ type ButtonProps = {
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children">;
 
 const variants: Record<Variant, string> = {
-  primary: "bg-brand text-white shadow-sm shadow-teal-900/10 hover:bg-brand-dark",
-  secondary: "bg-brand-soft text-brand-dark hover:bg-teal-100/80",
-  outline: "border border-line bg-white text-ink hover:border-brand/40 hover:text-brand",
-  ghost: "text-ink hover:bg-slate-100",
-  danger: "bg-red-600 text-white hover:bg-red-700",
+  primary: "bg-brand-surface text-white shadow-sm shadow-brand-surface/25 hover:bg-brand-dark",
+  secondary: "bg-brand-soft text-brand-soft-foreground hover:bg-brand-soft-hover",
+  outline: "border border-line bg-paper text-ink hover:border-brand/40 hover:text-brand",
+  ghost: "text-ink hover:bg-surface-muted",
+  danger: "bg-danger-solid text-white hover:bg-danger-solid-hover",
   white: "bg-white text-brand-dark shadow-sm hover:bg-brand-soft",
   outlineLight: "border border-white/30 bg-transparent text-white hover:border-white/60 hover:bg-white/10 hover:text-white",
 };

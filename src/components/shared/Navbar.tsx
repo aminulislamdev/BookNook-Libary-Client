@@ -68,7 +68,7 @@ export default function Navbar() {
           <ThemeToggle />
 
           {isPending ? (
-            <div className="h-9 w-9 animate-pulse rounded-full bg-slate-200 dark:bg-slate-700" />
+            <div className="h-9 w-9 animate-pulse rounded-full bg-surface-muted" />
           ) : user ? (
             <UserMenu
               user={{
@@ -87,7 +87,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/register"
-                className="rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-teal-900/10 transition hover:bg-brand-dark"
+                className="rounded-xl bg-brand-surface px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-brand-surface/25 transition hover:bg-brand-dark"
               >
                 Register
               </Link>
