@@ -1,19 +1,22 @@
 # BookNook
 
-**BookNook** is a premium, responsive online library built with Next.js. Readers can discover curated books, search and filter the collection, borrow titles with a chosen return date, add their own books to the shelves, and manage their loans from a personal dashboard.
+**BookNook** is a premium, full-stack online library built with Next.js and Express. Readers can discover curated books, search and filter the collection, borrow titles with a chosen return date, add their own books to the shelves, and manage their loans from a personal dashboard — all wrapped in a calm, editorial UI with full dark-mode support.
 
-This repository contains the **BookNook frontend client**. Authentication is handled inside the Next.js application with Better Auth and MongoDB. Book and borrowing data are read from and written to a separate BookNook API service configured through `NEXT_PUBLIC_API_URL`.
+This repository contains the **BookNook frontend client**. Authentication is handled inside the Next.js application with Better Auth and MongoDB. Book and borrowing data are read from and written to the companion **BookNook API** server configured through `NEXT_PUBLIC_API_URL`.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16.4.3-000000?logo=nextdotjs)
 ![React](https://img.shields.io/badge/React-19.3.0-087EA4?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss)
 ![Better Auth](https://img.shields.io/badge/Better_Auth-1.7.14-000000)
+![MongoDB](https://img.shields.io/badge/MongoDB-7-47A248?logo=mongodb)
 
 ---
 
 ## Table of Contents
 
+- [Preview](#preview)
+- [Live Links](#live-links)
 - [Project Overview](#project-overview)
 - [Key Features](#key-features)
 - [Technologies Used](#technologies-used)
@@ -32,18 +35,35 @@ This repository contains the **BookNook frontend client**. Authentication is han
 
 ---
 
-**Live Website:** [https://booknook-c-ph.vercel.app](https://booknook-c-ph.vercel.app)
+## Preview
 
-**Server API:** [https://booknook-s-ph.vercel.app](https://booknook-s-ph.vercel.app)
+| Screenshot | Description |
+|---|---|
+| ![Project Preview](public/screenshots/project-preview.png) | Full project overview |
+| ![Home Page](public/screenshots/homepage.png) | Hero slider, categories, and new arrivals |
+| ![Books Page](public/screenshots/books-page.png) | Search, filter, and paginated catalog |
+| ![Book Details](public/screenshots/book-details.png) | Detail view with availability and borrow modal |
+| ![Dashboard](public/screenshots/dashboard.png) | My Books and My Borrows management |
+| ![Dark Mode](public/screenshots/dark-mode.png) | Full dark theme in action |
+
+> Images will be shown once added to `public/screenshots/`.
 
 ---
+
+## Live Links
+
+| Resource | URL |
+|---|---|
+| **Live Website** | [https://booknook-c-ph.vercel.app](https://booknook-c-ph.vercel.app) |
+| **Server API** | [https://booknook-s-ph.vercel.app](https://booknook-s-ph.vercel.app) |
+
+---
+
 ## Project Overview
 
-BookNook is a full reading-room experience rather than a simple catalog. The home page combines an image-led hero slider, browsing categories, curated discovery tools, new arrivals, a rotating reading quote, and a reader's wall of community book notes. Signed-in readers get a complete loan lifecycle: add a book, see it on their shelf, edit or delete it, borrow other readers' books, and return them when finished.
+BookNook is a full reading-room experience, not a simple catalog. The home page combines an image-led hero slider, browsing categories, curated discovery tools, new arrivals, a rotating reading quote, and a community reader's wall. Signed-in readers get a complete loan lifecycle: add a book, see it on their shelf, edit or delete it, borrow other readers' books, and return them when finished.
 
-The interface is built around a calm white and deep-teal visual system, with Playfair Display headings, Inter body text, rounded cards, subtle motion, accessible dialogs, loading skeletons, and empty states throughout.
-
-The application expects a compatible backend service for books and borrows. That backend is **not included in this repository**.
+The interface is built around a calm white-and-teal visual system (deep navy in dark mode), with Playfair Display headings, Inter body text, rounded cards, subtle lift-and-shadow motion, accessible dialogs, loading skeletons, and empty states throughout. A system-aware dark/light theme toggle lives in the navbar.
 
 ---
 
@@ -51,121 +71,114 @@ The application expects a compatible backend service for books and borrows. That
 
 ### Discovery & Home Page
 
-- Full-width hero slider powered by Swiper with fade transitions, autoplay every 4 seconds, looped slides, and clickable pagination.
+- Full-width hero slider powered by **Swiper 14** with fade transitions, 4-second autoplay, looped slides, and clickable pagination dots.
 - Three editorial hero slides with library photography, custom headings, descriptions, and a **Browse Books** call to action.
-- Feature strip highlighting curated shelves, clear availability, and user-added books.
-- Popular category cards for **Fiction**, **Science**, **History**, **Kids**, and **Others**, each linking to the filtered catalog.
-- **Discover Your Next Read** section with:
-  - **Blind Date with a Book** — a click-to-reveal card that unwraps a surprise title from a curated list of 20 books.
-  - **Reading Mood Studio** — mood-based recommendations for relaxing, thrilling, learning, and escapist reads, revealed with an animated 3D flip.
-- **New Arrivals** grid that fetches the six newest books from the API.
-- Rotating literary quote section that changes every 10 seconds.
-- **The Reader's Wall** — a community section of pinned reader notes about books that stayed with them, followed by a closing call-to-action.
-- Responsive sticky navbar with active-link styling, auth-aware links, a profile dropdown, and a mobile hamburger menu.
-- Footer with quick links, category links, contact details, and social links.
+- Dark sub-strip below the slider highlighting curated shelves, clear availability, and community book adding.
+- Category grid for **Fiction**, **Science**, **History**, **Kids**, and **Others** — each links to the filtered catalog.
+- **Discover Your Next Read** section:
+  - **Blind Date with a Book** — click-to-reveal card unwrapping a surprise title from a curated list of 20 books.
+  - **Reading Mood Studio** — mood-based recommendations with an animated 3D card flip.
+- **New Arrivals** grid fetching the six newest books from the API.
+- Rotating literary quote section (George R.R. Martin, Harper Lee, Hemingway, C.S. Lewis) changing every 10 seconds.
+- **The Reader's Wall** — tilted sticky-note community reviews with 5-star ratings.
+- Closing **CTA section** with "Explore Books" and "Add a Book" links.
+- Responsive sticky navbar with active-link styling, auth-aware links, reader avatar dropdown, and mobile hamburger menu.
+- System-aware **Dark/Light theme toggle** (Sun/Moon icons) persisted to `localStorage`.
+- Footer with quick links, category links, contact details (email, phone, location), and social links (GitHub, LinkedIn).
 
-### Book Catalog
+### Book Catalog (`/books`)
 
-- Responsive book grid with one, two, or three columns depending on screen size.
-- Debounced search by title, author, or description (350 ms).
-- Category filtering and server-side pagination at nine books per page.
-- URL-synchronized filters (`q`, `category`, `page`) so catalog views are shareable.
-- Sort by newest first.
-- Live result count, clear-filters action, loading skeletons, error retry states, and a dedicated empty state.
-- Book cards show cover, category, title, author, availability, and a details link.
-- Cover fallback treatment when an image is missing or fails to load.
+- Responsive book grid: 1 / 2 / 3 columns on mobile / tablet / desktop.
+- Debounced search by title or author (350 ms).
+- Category filtering via URL param (`?category=Fiction`).
+- Server-side pagination at nine books per page.
+- URL-synchronized filters (`q`, `category`, `page`) — catalog views are bookmarkable and shareable.
+- Newest-first sort by default.
+- Live result count, clear-filters action, loading skeletons, error retry, and empty state.
+- Book cards show cover (with graceful fallback), category badge, title, author, availability indicator, and a **View Details** link.
 
-### Book Details & Borrowing
+### Book Details & Borrowing (`/books/:id`)
 
-- Two-column detail layout with a sticky cover and availability panel on desktop.
-- Displays title, author, category, description, added-by reader, date added, total copies, available copies, and copies on loan.
-- Availability progress bar with clear **available**, **low availability**, and **not available** states.
-- Authentication-aware actions:
-  - Guests are prompted to sign in.
-  - Owners are directed to manage their book.
-  - Signed-in readers can open the borrow dialog.
-- Borrow confirmation modal with read-only borrower details, borrow date, and return date.
-- Default loan window of 14 days, with the return date constrained to the borrow date or later.
-- Successful borrow state with a link to **My Borrows**.
-- Book availability refreshes after a successful loan.
+- Two-column desktop layout: cover + availability panel left, full metadata right.
+- Shows title, author, category, description, added-by reader, date added, total copies, available copies, and copies on loan.
+- Color-coded availability progress bar: green (available) / amber (low) / red (not available).
+- Authentication-aware actions: guests prompted to sign in; book owners directed to manage their book; signed-in readers can open the borrow dialog.
+- **Borrow modal** with read-only borrower details, borrow date, and return date picker (default 14-day window).
+- After borrowing, the detail view refreshes availability and shows a link to **My Borrows**.
 
 ### Book Management
 
-- **Add Book** page wrapped in an authentication gate.
-- Fields for title, author, category, number of copies, description, and cover image.
-- Read-only display of the signed-in user's name and email.
-- Live book-card preview while filling out the form.
-- Direct cover upload through ImgBB or manual image URL entry.
-- Image type and 5 MB size validation.
-- Copy count validation between 1 and 50; descriptions capped at 1,200 characters.
-- **My Books** dashboard with totals for titles added, total copies, and available copies.
-- Responsive management UI: table on desktop and cards on mobile.
-- Edit a book in a prefilled modal and save changes without leaving the page.
-- Delete a book through a custom confirmation dialog with error handling and toast feedback.
-- Loading skeletons, error retry, and an empty-shelf state.
+- **Add Book** (`/add-book`) — private route with live book-card preview while filling out the form.
+  - Fields: title, author, category, copies (1–50), description (up to 1,200 chars), cover image URL.
+  - Direct ImgBB upload via the API key; falls back to a manual URL.
+  - Read-only display of the signed-in user's name and email.
+- **My Books** (`/my-books`) — private dashboard with totals for titles added, total copies, and available copies.
+  - Responsive UI: table on desktop, cards on mobile.
+  - Edit a book in a prefilled modal without leaving the page.
+  - Delete a book through a custom confirmation dialog (blocked if the book has an active loan).
+  - Loading skeletons, error retry, and empty-shelf state.
 
-### Borrowing Dashboard
+### Borrowing Dashboard (`/my-borrows`)
 
-- **My Borrows** page with **Active** and **History** tabs and item counts.
-- Summary cards for active loans, due-soon/overdue loans, and returned books.
-- Displays cover, title, author, borrow date, return date, and status.
-- Active, overdue, and returned status badges.
-- Due-today, days-remaining, and overdue-day messaging.
-- Return a book through a confirmation dialog; the copy is restored and the list refreshes.
-- Responsive table-to-card layout with skeleton and empty states.
+- Active and History tabs with item counts.
+- Summary stat cards: active loans, due-soon / overdue, returned.
+- Displays cover, title, author, borrow date, return date, and a status badge (active / overdue / returned).
+- Due-today, days-remaining, and overdue-day messaging per loan.
+- Return a book through a confirmation dialog; the available copy is restored and the list refreshes.
+- Responsive table-to-card layout with skeletons and empty states.
 
-### Reader Profile
+### Reader Profile (`/profile`)
 
-- Profile page with avatar or generated initials, name, email, reader badge, and membership date.
-- Reading snapshot showing books added, active borrows, and books returned.
-- Edit-profile modal for updating display name and profile image.
-- Profile image can be uploaded to ImgBB or supplied as a URL.
+- Avatar (or generated initials), name, email, reader badge, and membership date.
+- Reading snapshot: books added, active borrows, books returned.
+- Edit-profile modal for display name and profile image (ImgBB upload or URL).
 - Quick links to **My Books**, **My Borrows**, and **Add Book**.
 
 ### Authentication
 
-- Email and password sign-up and sign-in through Better Auth.
-- Minimum password length of eight characters and password confirmation feedback on registration.
-- Optional photo URL during registration.
-- Google OAuth sign-in/sign-up support, configurable through Google Cloud credentials.
-- Show/hide password control.
-- Redirect preservation through the `redirect` query parameter.
-- Signed-in users are redirected away from the login and registration pages.
-- Session-aware navigation and logout from both desktop and mobile menus.
-- Friendly toast notifications for authentication and data actions.
+- Email and password sign-up and sign-in via **Better Auth**.
+- Minimum 8-character password with real-time confirmation feedback on registration.
+- Optional photo URL on registration.
+- Google OAuth support (configurable via Google Cloud credentials).
+- Show/hide password toggle.
+- Redirect preservation via the `redirect` query parameter.
+- Signed-in users are redirected away from `/login` and `/register`.
+- Session-aware navigation; logout from desktop and mobile menus clears the JWT.
 
 ### Experience & Accessibility
 
 - Custom 404 page with library-themed illustration and recovery links.
 - Global error boundary with a retry action.
-- Toast provider for success, error, and informational messages.
-- Accessible modal implementation with focus management, focus trapping, Escape-to-close, and body scroll locking.
-- Visible focus styles, semantic labels, `aria-current`, `aria-live` regions, and reduced-motion support.
-- Responsive layouts across mobile, tablet, and desktop.
+- Toast system: success (teal), error (red), info (blue) — 4-second auto-dismiss.
+- Accessible modals: focus trap, Escape-to-close, body scroll lock, `aria-modal`.
+- Visible focus styles, semantic HTML, `aria-current`, `aria-live`, reduced-motion support.
+- Full dark/light theme: all color tokens swap via `.dark` CSS class, no flicker.
+- Responsive layouts across mobile (360px), tablet (768px), and desktop (1280px+).
 
 ---
 
 ## Technologies Used
 
 | Category | Technology |
-| --- | --- |
+|---|---|
 | Framework | [Next.js 16.4.3](https://nextjs.org/) — App Router |
 | UI Runtime | [React 19.3.0](https://react.dev/) |
 | Language | TypeScript 5 |
 | Styling | Tailwind CSS 4 with `@tailwindcss/turbopack` |
-| Component System | shadcn/ui (`base-nova` style) and Base UI primitives |
-| Icons | Lucide React |
+| Component System | shadcn/ui (`base-nova` style) + Base UI primitives (`@base-ui/react`) |
+| Icons | Lucide React 1.65 |
 | Fonts | `next/font` — Inter, Playfair Display, Geist |
-| Animation | CSS keyframes, `tw-animate-css`, Swiper transitions |
-| Carousel | Swiper 14 with Autoplay, Pagination, and EffectFade modules |
+| Animation | CSS keyframes, `tw-animate-css`, Framer Motion, Swiper transitions |
+| Carousel | Swiper 14 — Autoplay, Pagination, EffectFade modules |
+| Theme | next-themes 0.4.6 — class-based dark/light with system preference |
 | Authentication | Better Auth 1.7.14 with the JWT plugin |
-| Auth Database | MongoDB through `@better-auth/mongo-adapter` and the MongoDB driver |
+| Auth Database | MongoDB via `@better-auth/mongo-adapter` and the MongoDB Node.js driver |
 | Image Hosting | ImgBB upload API (client-side uploads) |
-| Images | `next/image` with remote HTTPS image support |
-| Tooling | ESLint 9, `eslint-config-next`, React Compiler, Turbopack |
+| Images | `next/image` with remote HTTPS wildcard pattern |
+| Tooling | ESLint 9, `eslint-config-next`, React Compiler (`babel-plugin-react-compiler`), Turbopack |
 | Package Manager | npm (`package-lock.json`) |
 
-The project also enables Next.js `cacheComponents`, `partialPrefetching`, and the React Compiler in `next.config.ts`.
+`next.config.ts` enables `cacheComponents`, `partialPrefetching`, and the React Compiler.
 
 ---
 
@@ -176,17 +189,21 @@ Browser
    │
    ├── Next.js App Router (this repository)
    │      ├── Pages, layouts, components, client-side data fetching
-   │      ├── /api/auth/[...all]  ──> Better Auth
-   │      │                             ├── MongoDB (booknook database)
-   │      │                             ├── Email/password sessions
-   │      │                             └── Google OAuth
+   │      ├── /api/auth/[...all]  ──► Better Auth
+   │      │                               ├── MongoDB (booknook database)
+   │      │                               ├── Email/password sessions
+   │      │                               └── Google OAuth
    │      └── ImgBB API (cover and avatar uploads)
    │
-   └── BookNook API (external service)
-          ├── /books
-          ├── /books/:id
-          ├── /borrows
-          └── /borrows/:id
+   └── BookNook API (booknook-server — separate repository)
+          ├── GET  /api/books
+          ├── GET  /api/books/:id
+          ├── POST /api/books           (JWT required)
+          ├── PATCH /api/books/:id      (JWT required)
+          ├── DELETE /api/books/:id     (JWT required)
+          ├── GET  /api/borrows         (JWT required)
+          ├── POST /api/borrows         (JWT required)
+          └── DELETE /api/borrows/:id   (JWT required)
 ```
 
 - The Next.js app owns authentication, sessions, and the authenticated UI.
@@ -202,108 +219,105 @@ Browser
 ```text
 booknook-client/
 ├── public/
-│   ├── books/                    # Local book cover artwork
+│   ├── books/                    # 24 local book cover images (.jpg)
 │   ├── images/
-│   │   └── hero-library.jpg
-│   ├── file.svg
-│   ├── globe.svg
-│   ├── next.svg
-│   ├── vercel.svg
-│   └── window.svg
+│   │   └── hero-library.jpg      # Local hero image
+│   └── screenshots/              # Add project screenshots here
 ├── src/
 │   ├── app/
 │   │   ├── api/auth/[...all]/route.ts   # Better Auth Next.js handler
-│   │   ├── add-book/page.tsx            # Add a book
-│   │   ├── books/page.tsx               # Catalog shell + suspense fallback
-│   │   ├── books/[id]/page.tsx          # Book details and borrowing
+│   │   ├── add-book/page.tsx            # Add a book (private)
+│   │   ├── books/page.tsx               # Catalog shell + Suspense
+│   │   ├── books/[id]/page.tsx          # Book details and borrowing (private)
 │   │   ├── login/page.tsx               # Sign in
 │   │   ├── register/page.tsx            # Registration
-│   │   ├── my-books/page.tsx            # Manage owned books
-│   │   ├── my-borrows/page.tsx          # Active loans and history
-│   │   ├── profile/page.tsx             # Reader profile
+│   │   ├── my-books/page.tsx            # Manage owned books (private)
+│   │   ├── my-borrows/page.tsx          # Active loans and history (private)
+│   │   ├── profile/page.tsx             # Reader profile (private)
 │   │   ├── error.tsx                    # Global error boundary
 │   │   ├── not-found.tsx                # Custom 404 page
-│   │   ├── layout.tsx                   # Root layout, fonts, navbar, footer
+│   │   ├── layout.tsx                   # Root layout: fonts, theme, navbar, footer
 │   │   ├── page.tsx                     # Home page
-│   │   ├── globals.css                  # Tailwind theme and design tokens
+│   │   ├── globals.css                  # Tailwind theme, design tokens, dark mode
 │   │   └── favicon.ico
 │   ├── components/
 │   │   ├── auth/
 │   │   │   ├── AuthShell.tsx            # Split-screen auth layout
 │   │   │   └── PasswordInput.tsx        # Password field with visibility toggle
 │   │   ├── books/
-│   │   │   ├── AllBooksClient.tsx       # Catalog search, filters, pagination
-│   │   │   ├── BookCard.tsx
-│   │   │   ├── BookCover.tsx
+│   │   │   ├── AllBooksClient.tsx       # Catalog: search, filters, pagination
+│   │   │   ├── BookCard.tsx             # Book grid card with availability
+│   │   │   ├── BookCover.tsx            # Image with initials fallback
 │   │   │   ├── BookForm.tsx             # Shared add/edit book form
-│   │   │   ├── BookGridSkeleton.tsx
-│   │   │   ├── BorrowModal.tsx
-│   │   │   └── Pagination.tsx
+│   │   │   ├── BookGridSkeleton.tsx     # Loading skeleton for book grids
+│   │   │   ├── BorrowModal.tsx          # Borrow confirmation dialog
+│   │   │   └── Pagination.tsx           # Page navigation
 │   │   ├── home/
-│   │   │   ├── Categories.tsx
-│   │   │   ├── CategoryCard.tsx
-│   │   │   ├── CtaSection.tsx
-│   │   │   ├── DiscoverySection.tsx
-│   │   │   ├── HeroSlider.tsx
-│   │   │   ├── HeroStrip.tsx
-│   │   │   ├── HowItWorks.tsx
-│   │   │   ├── NewArrivals.tsx
-│   │   │   ├── ReadingNook.tsx
-│   │   │   ├── ReadersWall.tsx
+│   │   │   ├── Categories.tsx           # 5-category grid
+│   │   │   ├── CategoryCard.tsx         # Individual category card
+│   │   │   ├── CtaSection.tsx           # Closing CTA with teal card
+│   │   │   ├── DiscoverySection.tsx     # Blind Date + Mood Studio
+│   │   │   ├── HeroSlider.tsx           # Swiper fade hero with 3 slides
+│   │   │   ├── HeroStrip.tsx            # Dark sub-bar below hero
+│   │   │   ├── HowItWorks.tsx           # Steps explanation section
+│   │   │   ├── NewArrivals.tsx          # Latest 6 books from API
+│   │   │   ├── ReadersWall.tsx          # Community sticky-note reviews
+│   │   │   ├── ReadingNook.tsx          # Rotating literary quote
 │   │   │   └── discovery/
-│   │   │       ├── BlindDateCard.tsx
-│   │   │       └── MoodStudio.tsx
+│   │   │       ├── BlindDateCard.tsx    # Click-to-reveal surprise book
+│   │   │       └── MoodStudio.tsx       # 3D-flip mood recommendations
 │   │   ├── shared/
-│   │   │   ├── AuthGate.tsx             # Client-side auth guard
-│   │   │   ├── AvatarUpload.tsx         # ImgBB avatar upload
-│   │   │   ├── Footer.tsx
-│   │   │   ├── Navbar.tsx
-│   │   │   ├── ProfileModal.tsx
-│   │   │   ├── UserMenu.tsx
+│   │   │   ├── AuthGate.tsx             # Client-side auth guard with redirect
+│   │   │   ├── AvatarUpload.tsx         # ImgBB avatar upload component
+│   │   │   ├── Footer.tsx               # 4-column footer with social links
+│   │   │   ├── Navbar.tsx               # Sticky auth-aware navbar
+│   │   │   ├── PageTitleProvider.tsx    # Dynamic document title
+│   │   │   ├── ProfileModal.tsx         # Edit profile dialog
+│   │   │   ├── ThemeProvider.tsx        # next-themes wrapper
+│   │   │   ├── ThemeToggle.tsx          # Sun/Moon toggle button
+│   │   │   ├── UserMenu.tsx             # Avatar dropdown with logout
 │   │   │   └── navbar/
-│   │   │       ├── MobileMenu.tsx
-│   │   │       ├── NavLinks.tsx
-│   │   │       └── NavLogo.tsx
+│   │   │       ├── MobileMenu.tsx       # Full-screen mobile nav
+│   │   │       ├── NavLinks.tsx         # Desktop nav link list
+│   │   │       └── NavLogo.tsx          # BookNook wordmark logo
 │   │   └── ui/
-│   │       ├── Alert.tsx
-│   │       ├── Badge.tsx
-│   │       ├── Button.tsx
-│   │       ├── ConfirmDialog.tsx
-│   │       ├── Container.tsx
+│   │       ├── Alert.tsx                # Inline alert (info/success/warning/error)
+│   │       ├── Badge.tsx                # Status and category badges
+│   │       ├── Button.tsx               # CVA button with variants and sizes
+│   │       ├── ConfirmDialog.tsx        # Destructive action confirmation
+│   │       ├── Container.tsx            # max-w-7xl responsive wrapper
 │   │       ├── dialog.tsx               # Base UI dialog primitives
-│   │       ├── EmptyState.tsx
+│   │       ├── EmptyState.tsx           # Empty list state with icon and CTA
 │   │       ├── Form.tsx                 # Input, Label, Select, Textarea
-│   │       ├── Modal.tsx
-│   │       ├── PageLoader.tsx
-│   │       ├── SectionHeading.tsx
-│   │       ├── Skeleton.tsx
-│   │       └── Toast.tsx
+│   │       ├── Modal.tsx                # Accessible focus-trapped modal
+│   │       ├── PageLoader.tsx           # Full-page loading spinner
+│   │       ├── SectionHeading.tsx       # Eyebrow + title + description heading
+│   │       ├── Skeleton.tsx             # Animated pulse skeleton
+│   │       └── Toast.tsx                # Global toast provider and hook
 │   ├── data/
-│   │   └── slides.ts                    # Hero slider content
+│   │   └── slides.ts                    # Hero slider content (3 slides)
 │   ├── lib/
-│   │   ├── api.ts                       # Authenticated API client
+│   │   ├── api.ts                       # Authenticated fetch client + JWT caching
 │   │   ├── auth-client.ts               # Better Auth browser client
 │   │   ├── auth.ts                      # Better Auth server configuration
 │   │   ├── client-token.ts              # Browser JWT retrieval
 │   │   ├── hooks.ts                     # useDebouncedValue
 │   │   ├── server-token.ts              # Server-side JWT retrieval
-│   │   ├── types.ts                     # Book, Borrow, and response types
-│   │   └── utils.ts                     # Class names, dates, initials, helpers
-│   └── proxy.ts                         # Session-cookie route protection
-├── .gitignore
+│   │   ├── types.ts                     # Book, Borrow, Category types
+│   │   └── utils.ts                     # cn, formatDate, initials, daysBetween, etc.
+│   └── proxy.ts                         # Session-cookie route protection middleware
 ├── AGENTS.md
-├── DESIGN.md
+├── DESIGN.md                            # Design system reference
 ├── PROMPT.md
-├── components.json
+├── components.json                      # shadcn/ui configuration
 ├── eslint.config.mjs
 ├── next.config.ts
 ├── package.json
-├── package-lock.json
 ├── tsconfig.json
 └── README.md
 ```
 
-> `node_modules/`, `.next/`, build output, environment files, and other ignored artifacts are intentionally omitted.
+> `node_modules/`, `.next/`, build output, and environment files are intentionally omitted.
 
 ---
 
@@ -311,32 +325,28 @@ booknook-client/
 
 ### Prerequisites
 
-- **Node.js 20.9 or newer** (recommended for Next.js 16)
+- **Node.js 20.9 or newer** (required for Next.js 16)
 - **npm** (the repository includes a `package-lock.json`)
-- A running **BookNook API** service for books and borrows
+- A running **BookNook API** (`booknook-server`) for books and borrows
 - A **MongoDB** database reachable from the Next.js server (local or MongoDB Atlas)
 - Optional: **Google Cloud OAuth credentials** for Google sign-in
-- Optional: an **ImgBB API key** for direct cover/avatar uploads
+- Optional: an **ImgBB API key** for direct cover and avatar uploads
 
-### 1. Install dependencies
+### 1. Clone and install
 
 ```bash
+git clone https://github.com/aminulislamdev/booknook-client.git
+cd booknook-client
 npm install
 ```
 
 ### 2. Configure environment variables
 
-Create a local environment file in the project root:
+Create `.env.local` in the project root (see [Environment Variables](#environment-variables) below).
 
-```bash
-.env.local
-```
+### 3. Start the BookNook API
 
-Add the values described in [Environment Variables](#environment-variables). Environment files are ignored by Git through the `.env*` rule in `.gitignore`, so no `.env.example` file is tracked in this repository.
-
-### 3. Start MongoDB and the BookNook API
-
-The frontend reads the API root from `NEXT_PUBLIC_API_URL` (default: `https://booknook-s-ph.vercel.app/api`). To use a local backend, set it to `http://localhost:8000/api` and start that service separately. Confirm its `/books` endpoint is reachable before running the client.
+The frontend reads the API root from `NEXT_PUBLIC_API_URL`. To use the deployed API, set it to `https://booknook-s-ph.vercel.app/api`. To use a local server, set it to `http://localhost:8000/api` and start `booknook-server` separately.
 
 ### 4. Start the development server
 
@@ -344,22 +354,24 @@ The frontend reads the API root from `NEXT_PUBLIC_API_URL` (default: `https://bo
 npm run dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000).
+
 ---
 
 ## Environment Variables
 
-The following variables are referenced directly in the source code.
+All variables consumed directly by the source code:
 
-| Variable | Scope | Required | Description | Default / Example |
-| --- | --- | --- | --- | --- |
-| `DB_URL` | Server | Yes | MongoDB connection string used by Better Auth. The adapter uses the `booknook` database. | `mongodb+srv://...` |
-| `BETTER_AUTH_SECRET` | Server | Yes | Secret used by Better Auth to sign sessions and tokens. | A long random string |
-| `BETTER_AUTH_URL` | Server | Yes | Public base URL of the Next.js app. Also registered as a trusted auth origin. | `http://localhost:3000` |
-| `GOOGLE_CLIENT_ID` | Server | For Google auth | Google OAuth client ID. | `...apps.googleusercontent.com` |
-| `GOOGLE_CLIENT_SECRET` | Server | For Google auth | Google OAuth client secret. | `GOCSPX-...` |
+| Variable | Scope | Required | Description | Example |
+|---|---|---|---|---|
+| `DB_URL` | Server | Yes | MongoDB connection string for Better Auth storage. Uses the `booknook` database. | `mongodb+srv://...` |
+| `BETTER_AUTH_SECRET` | Server | Yes | Secret used by Better Auth to sign sessions and tokens. Use a long, random string. | A 32+ char random string |
+| `BETTER_AUTH_URL` | Server | Yes | Public base URL of the Next.js app. Also set as the trusted auth origin. | `http://localhost:3000` |
+| `GOOGLE_CLIENT_ID` | Server | For Google auth | Google OAuth 2.0 client ID. | `...apps.googleusercontent.com` |
+| `GOOGLE_CLIENT_SECRET` | Server | For Google auth | Google OAuth 2.0 client secret. | `GOCSPX-...` |
 | `NEXT_PUBLIC_APP_URL` | Client | Recommended | Base URL used by the Better Auth browser client. | `http://localhost:3000` |
-| `NEXT_PUBLIC_API_URL` | Client | Recommended | Root URL of the external BookNook API, without a trailing slash. | `https://booknook-s-ph.vercel.app/api` |
-| `NEXT_PUBLIC_IMGBB_API_KEY` | Client | For uploads | ImgBB API key used by book-cover and avatar upload components. | Your ImgBB key |
+| `NEXT_PUBLIC_API_URL` | Client | Recommended | Root URL of the BookNook API, without a trailing slash. | `https://booknook-s-ph.vercel.app/api` |
+| `NEXT_PUBLIC_IMGBB_API_KEY` | Client | For uploads | ImgBB API key for book-cover and avatar uploads. | Your ImgBB key |
 
 ### Example `.env.local`
 
@@ -379,7 +391,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000/api
 NEXT_PUBLIC_IMGBB_API_KEY=your-imgbb-api-key
 ```
 
-> Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser. Do not put private server credentials in public variables.
+> Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser. Never put server credentials in public variables.
 
 ---
 
@@ -391,11 +403,9 @@ NEXT_PUBLIC_IMGBB_API_KEY=your-imgbb-api-key
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+The Better Auth handler is at `/api/auth/*`. The client calls the API at `NEXT_PUBLIC_API_URL`.
 
-The Better Auth handler is available at `/api/auth/*`, and the client will call the API configured by `NEXT_PUBLIC_API_URL`.
-
-### Production build locally
+### Production build
 
 ```bash
 npm run build
@@ -410,11 +420,12 @@ npm run lint
 
 ### Typical local workflow
 
-1. Start MongoDB (or allow access to your Atlas cluster).
-2. Start the BookNook API on port `8000`, or set `NEXT_PUBLIC_API_URL` to its address.
-3. Run `npm run dev` in this project.
-4. Register an account, add a book, and verify that it appears in **All Books**, **My Books**, and **New Arrivals**.
-5. Borrow a book from another account and confirm it moves to **My Borrows**.
+1. Start MongoDB (or allow Atlas access).
+2. Start `booknook-server` on port 8000, or point `NEXT_PUBLIC_API_URL` at the deployed API.
+3. Run `npm run dev`.
+4. Register an account, add a book, verify it appears in **All Books**, **My Books**, and **New Arrivals**.
+5. Borrow a book from a second account and confirm it moves to **My Borrows**.
+6. Return the book and confirm the available copy count is restored.
 
 ---
 
@@ -424,28 +435,27 @@ npm run lint
 
 `src/lib/auth.ts` configures Better Auth with:
 
-- MongoDB storage through `mongodbAdapter(client.db("booknook"))`
-- A reusable MongoDB client across development hot reloads
-- Email and password authentication with a minimum password length of 8
+- MongoDB storage via `mongodbAdapter(client.db("booknook"))`
+- Reusable MongoDB client across development hot reloads
+- Email and password auth with minimum password length of 8
 - Automatic sign-in after registration
 - Google as a social provider
-- The Better Auth JWT plugin
+- The Better Auth **JWT plugin** (issues short-lived JWTs for API access)
 - `BETTER_AUTH_URL` as both the auth base URL and trusted origin
 
-The App Router handler in `src/app/api/auth/[...all]/route.ts` exposes Better Auth through `toNextJsHandler(auth)` for both `GET` and `POST` requests.
+The App Router handler in `src/app/api/auth/[...all]/route.ts` exposes Better Auth via `toNextJsHandler(auth)` for GET and POST requests.
 
 ### Client session handling
 
 - `src/lib/auth-client.ts` creates the browser client with `createAuthClient`, the `jwtClient()` plugin, and `NEXT_PUBLIC_APP_URL`.
-- `useSession`, `signIn`, `signUp`, and `signOut` are re-exported for use across the UI.
 - Protected pages are wrapped in `AuthGate`, which shows a loader while the session resolves and redirects unauthenticated visitors to `/login?redirect=...`.
-- The navbar swaps **Login / Register** for the reader's avatar and profile menu after sign-in.
+- The navbar swaps **Login / Register** for the reader's avatar and profile dropdown after sign-in.
 
-### Route protection
+### Route protection middleware
 
-`src/proxy.ts` checks for the Better Auth session cookie and redirects unauthenticated requests to the login page. This uses the Next.js 16 proxy convention (`export async function proxy`). Requests for static book-cover files under `/books/` are allowed through so signed-out visitors can load local cover art; book detail routes remain protected, while the `/books` catalog stays public. The configured matcher covers:
+`src/proxy.ts` checks for the Better Auth session cookie and redirects unauthenticated requests to the login page (Next.js 16 `proxy` convention). The matcher covers:
 
-```text
+```
 /add-book/:path*
 /my-books/:path*
 /my-borrows/:path*
@@ -453,61 +463,55 @@ The App Router handler in `src/app/api/auth/[...all]/route.ts` exposes Better Au
 /profile/:path*
 ```
 
-The `redirect` query parameter preserves the destination after sign-in.
+Static book-cover files (`/books/`) bypass the middleware so signed-out visitors can load local cover art.
 
 ### API authentication
 
 `src/lib/api.ts` wraps `fetch` with:
 
-- The API base URL from `NEXT_PUBLIC_API_URL`, falling back to the deployed BookNook API
 - JSON request/response handling
-- An optional `auth` flag so public endpoints can skip token retrieval
-- A Bearer token obtained from the Better Auth JWT plugin through `authClient.token()`, cached in memory and `sessionStorage` until shortly before expiry
-- `cache: "no-store"` for fresh server data
+- An optional `auth` flag — public endpoints (catalog, book detail) can skip token retrieval
+- A Bearer token from `authClient.token()`, cached in memory and `sessionStorage` until shortly before expiry
+- `cache: "no-store"` to prevent stale server data
 - A typed `ApiError` containing the HTTP status
-- Removal of the stored token when the API responds with `401`
+- Automatic token removal on `401` responses
 
 ---
 
 ## API Documentation
 
-The client communicates with an external REST API. All paths below are relative to `NEXT_PUBLIC_API_URL` (default `https://booknook-s-ph.vercel.app/api`).
+The client communicates with the external BookNook REST API. All paths below are relative to `NEXT_PUBLIC_API_URL` (default: `https://booknook-s-ph.vercel.app/api`).
 
-Requests are sent with:
+Protected requests include:
 
 ```http
 Authorization: Bearer <better-auth-jwt>
 Content-Type: application/json
 ```
 
-The API may return either a paginated books object or a plain array; the catalog and new-arrivals views normalize both shapes.
-
 ### Endpoints used by the client
 
-| Method | Endpoint | Purpose |
-| --- | --- | --- |
-| `GET` | `/books` | List, search, filter, sort, and paginate books |
-| `GET` | `/books/:id` | Fetch a single book |
-| `POST` | `/books` | Add a new book |
-| `PATCH` | `/books/:id` | Update a book |
-| `DELETE` | `/books/:id` | Delete an owned book |
-| `GET` | `/borrows` | Fetch a reader's active and returned loans |
-| `POST` | `/borrows` | Borrow a book |
-| `DELETE` | `/borrows/:id` | Return a book |
+| Method | Endpoint | Auth | Purpose |
+|---|---|---|---|
+| `GET` | `/books` | No | List, search, filter, sort, paginate books |
+| `GET` | `/books/:id` | No | Fetch a single book |
+| `POST` | `/books` | Yes | Add a new book |
+| `PATCH` | `/books/:id` | Yes | Update a book |
+| `DELETE` | `/books/:id` | Yes | Delete an owned book |
+| `GET` | `/borrows` | Yes | Fetch the signed-in reader's loans |
+| `POST` | `/borrows` | Yes | Borrow a book |
+| `DELETE` | `/borrows/:id` | Yes | Return a book |
 
 ### `GET /books`
 
-Supported query parameters used by the application:
-
 | Parameter | Description |
-| --- | --- |
+|---|---|
 | `page` | Page number, starting at `1` |
-| `limit` | Number of results per page (catalog uses `9`, new arrivals use `6`, my books uses `100`) |
+| `limit` | Results per page (catalog: `9`, new arrivals: `6`, My Books: `100`) |
 | `sort` | `newest` for newest-first ordering |
-| `search` | Text search across title, author, and description |
+| `search` | Text search across title and author |
 | `category` | One of `Fiction`, `Science`, `History`, `Kids`, `Others` |
-| `addedBy` | Filter by the owning user ID |
-| `userEmail` | Filter by the owning user's email |
+| `userEmail` | Filter by the owning user's email (used in My Books) |
 
 Expected paginated response:
 
@@ -523,15 +527,15 @@ Expected paginated response:
 
 ### `GET /books/:id`
 
-Expected response, either wrapped:
+Returns the book both nested under `book` and flattened at the top level:
 
 ```json
 {
-  "book": {}
+  "book": { "id": "...", "title": "...", "availableCopies": 2 },
+  "id": "...",
+  "title": "..."
 }
 ```
-
-or returned directly as a book object.
 
 ### `POST /books` and `PATCH /books/:id`
 
@@ -544,47 +548,34 @@ Request body:
   "category": "Fiction",
   "totalCopies": 3,
   "description": "Short description",
-  "image": "https://example.com/cover.jpg",
-  "userId": "user-id",
-  "userName": "Reader Name",
-  "userEmail": "reader@example.com",
-  "createdAt": "2026-01-01T00:00:00.000Z",
-  "updatedAt": "2026-01-01T00:00:00.000Z"
-}
-```
-
-Expected response:
-
-```json
-{
-  "book": {}
+  "image": "https://example.com/cover.jpg"
 }
 ```
 
 ### `DELETE /books/:id`
 
-The client calls:
-
 ```http
 DELETE /books/:id?userId=<user-id>
 ```
 
-The response body is not used by the UI. A successful response updates the local list and shows a toast.
+Blocked by the API if the book has an active loan.
 
 ### `GET /borrows`
 
-Query parameters:
-
-| Parameter | Description |
-| --- | --- |
-| `userId` | Reader's user ID |
-| `userEmail` | Reader's email |
-
-Expected response:
+Returns the authenticated user's borrow records (matched by user ID or email from the JWT), newest first, with the associated book document embedded:
 
 ```json
 {
-  "borrows": []
+  "borrows": [
+    {
+      "id": "...",
+      "bookId": "...",
+      "bookTitle": "Atomic Habits",
+      "status": "active",
+      "returnDate": "2026-01-24T00:00:00.000Z",
+      "book": { "id": "...", "availableCopies": 2 }
+    }
+  ]
 }
 ```
 
@@ -595,47 +586,24 @@ Request body:
 ```json
 {
   "bookId": "book-id",
-  "bookTitle": "Book title",
-  "bookImage": "https://example.com/cover.jpg",
-  "userId": "user-id",
-  "userName": "Reader Name",
-  "userEmail": "reader@example.com",
-  "borrowDate": "2026-01-01T00:00:00.000Z",
-  "returnDate": "2026-01-15T23:59:59.000Z",
-  "dueDate": "2026-01-15T23:59:59.000Z"
+  "borrowDate": "2026-01-10T00:00:00.000Z",
+  "returnDate": "2026-01-24T23:59:59.000Z"
 }
 ```
 
-Expected response:
-
-```json
-{
-  "borrow": {}
-}
-```
+The API enforces: availability check (`availableCopies > 0`), atomic copy decrement, and duplicate-loan prevention (same user, same book, `status: "active"`).
 
 ### `DELETE /borrows/:id`
 
-Returns a borrowed book and restores the available copy. The UI removes the loan from the active list and refreshes the borrows data after success.
+Marks the loan as returned, restores the available copy, and removes the record. The UI removes the loan from the active list and refreshes after success.
 
-> The backend must enforce its own authorization and availability rules. The UI hides or disables owner actions and unavailable books, but the API remains the source of truth.
+> The backend is the source of truth for all business rules. The UI hides or disables owner actions and unavailable books, but all constraints are enforced server-side.
 
 ---
 
 ## Data Models
 
 Core types live in `src/lib/types.ts`.
-
-### User
-
-```ts
-type User = {
-  id: string;
-  name: string;
-  email: string;
-  image?: string;
-};
-```
 
 ### Book
 
@@ -649,12 +617,7 @@ type Book = {
   image: string;
   totalCopies: number;
   availableCopies: number;
-  addedBy: {
-    id: string;
-    name: string;
-    email: string;
-    image?: string;
-  };
+  addedBy: { id: string; name: string; email: string; image?: string };
   userId?: string;
   userName?: string;
   userEmail?: string;
@@ -675,12 +638,12 @@ type Borrow = {
   userName: string;
   userEmail: string;
   borrowDate: string;
-  borrowedAt?: string;
+  borrowedAt?: string;   // alias
   returnDate: string;
-  dueDate?: string;
+  dueDate?: string;      // alias
   returnedAt: string | null;
   status: "active" | "returned";
-  book?: Book | null;
+  book?: Book | null;    // embedded when available
 };
 ```
 
@@ -700,75 +663,88 @@ type BorrowsResponse = {
 };
 ```
 
-The borrow dashboard also reads `borrowedAt`, `dueDate`, and nested `book` fields when provided by the API, so it remains compatible with both flat and expanded borrow records.
-
 ---
 
 ## Design System
 
-BookNook uses one consistent visual language across all pages.
+BookNook uses one consistent visual language across all pages. The full reference is in [`DESIGN.md`](./DESIGN.md).
 
-### Color tokens
+### Color tokens (light mode)
 
 | Token | Value | Usage |
-| --- | --- | --- |
+|---|---|---|
 | Canvas | `#F8FAFC` | Page background |
+| Paper | `#FFFFFF` | Card and surface backgrounds |
 | Ink | `#17212B` | Primary text |
 | Muted | `#5B6B7C` | Secondary text |
 | Line | `#E2E8F0` | Borders and dividers |
-| Brand | `#0F766E` | Primary actions and accents |
-| Brand Dark | `#0B5F59` | Hover and dark panels |
-| Brand Soft | `#ECFDF9` | Soft teal surfaces |
+| Brand | `#0F766E` | Primary actions, active links |
+| Brand Dark | `#0B5F59` | Hover states, quote section background |
+| Brand Soft | `#ECFDF9` | Soft teal surfaces, "View Details" button |
+
+All tokens redefine under `.dark` — no component uses hard-coded hex values.
 
 ### Typography
 
-- **Inter** — body copy and interface text.
-- **Playfair Display** — display headings and editorial titles.
-- **Geist** — loaded as an additional sans variable.
+- **Playfair Display** — display headings, editorial titles, book card titles.
+- **Inter** — body copy, navigation, UI labels, metadata.
+- **Geist** — loaded as an additional sans variable (available via `--font-geist-sans`).
 
-### Layout and components
+### Layout
 
-- Tailwind CSS 4 theme tokens defined in `src/app/globals.css`.
-- shadcn/ui configuration in `components.json` (`base-nova`, neutral base color, CSS variables, Lucide icons).
-- Reusable primitives for buttons, badges, alerts, modals, confirmation dialogs, forms, skeletons, pagination, empty states, and toasts.
-- Responsive maximum-width container (`max-w-7xl`) with mobile, tablet, and desktop spacing.
-- Consistent 2:3 book-cover aspect ratio and rounded card treatment.
-- Subtle `fade-up`, `fade-in`, and `scale-in` animations, 3D flip reveals in the Reading Mood Studio, and reduced-motion support.
-- Remote HTTPS images accepted through `next.config.ts`; missing covers fall back to a branded placeholder.
+- `Container`: `max-w-7xl` with `px-4` / `px-6` / `px-8` responsive horizontal padding.
+- Section vertical padding: `py-20 sm:py-24` standard.
+- Book grid: `gap-6 sm:grid-cols-2 lg:grid-cols-3`.
+- Navbar: `h-18` (72px), sticky, glass backdrop.
+
+### Key primitives
+
+`Button` (CVA variants: default/outline/ghost/danger, sizes: sm/default/lg), `Badge` (teal/success/warning/danger/muted), `Alert`, `Modal` (focus-trapped), `ConfirmDialog`, `Toast`, `SectionHeading`, `BookCard`, `CategoryCard`, `EmptyState`, `Skeleton`, `Pagination`.
 
 ---
 
 ## Available Scripts
 
 | Command | Description |
-| --- | --- |
+|---|---|
 | `npm run dev` | Start the Next.js development server with Turbopack |
 | `npm run build` | Create a production build |
-| `npm start` | Serve the production build |
-| `npm run lint` | Run ESLint with Next.js core-web-vitals and TypeScript rules |
+| `npm start` | Serve the production build locally |
+| `npm run lint` | Run ESLint (Next.js core-web-vitals + TypeScript rules) |
 
 ---
 
 ## Deployment
 
-This repository does not include a platform-specific deployment configuration (such as a Dockerfile, `vercel.json`, or CI workflow). It is a standard Next.js application and can be deployed to any Node.js host that supports Next.js, including Vercel.
+Both the client and server are deployed on **Vercel**.
+
+| Project | Vercel Name | URL |
+|---|---|---|
+| Frontend | `booknook-c-ph` | https://booknook-c-ph.vercel.app |
+| Backend | `booknook-s-ph` | https://booknook-s-ph.vercel.app |
+
+The server uses `vercel.json` to route all requests through `index.js` via `@vercel/node`.
 
 ### Production checklist
 
 1. Set all required environment variables on the hosting platform.
-2. Use production values for `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL`; both should match the deployed origin.
-3. Point `NEXT_PUBLIC_API_URL` at the production BookNook API.
-4. Ensure the MongoDB cluster is reachable from the deployment environment.
-5. Register the production callback URL in the Google Cloud OAuth configuration.
-6. Provide `NEXT_PUBLIC_IMGBB_API_KEY` if image uploads should work.
-7. Run `npm run build` and start with `npm start`.
+2. Set `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL` to the deployed frontend origin.
+3. Set `NEXT_PUBLIC_API_URL` to the production BookNook API URL.
+4. Ensure the MongoDB cluster allows connections from Vercel's IP ranges.
+5. Register the production callback URL in the Google Cloud OAuth app.
+6. Set `NEXT_PUBLIC_IMGBB_API_KEY` for image uploads.
+7. Run `npm run build` and deploy; Vercel handles `npm start` automatically.
 
-`next.config.ts` allows remote images over HTTPS from any hostname and enables `cacheComponents`, `partialPrefetching`, the React Compiler, and the Tailwind Turbopack CSS loader.
+`next.config.ts` enables remote images over HTTPS from any hostname, `cacheComponents`, `partialPrefetching`, the React Compiler, and the Tailwind Turbopack CSS loader.
 
 ---
 
 ## Contact
 
-- GitHub: [aminulislamdev](https://github.com/aminulislamdev)
-- LinkedIn: [aminulislamjs](https://www.linkedin.com/in/aminulislamjs/)
-- Email: [aminulislam424842@gmail.com](mailto:aminulislam424842@gmail.com)
+| Channel | Link |
+|---|---|
+| GitHub | [aminulislamdev](https://github.com/aminulislamdev) |
+| LinkedIn | [aminulislamjs](https://www.linkedin.com/in/aminulislamjs/) |
+| Email | [aminulislam424842@gmail.com](mailto:aminulislam424842@gmail.com) |
+| Phone | +880 1709150885 |
+| Location | Rajshahi, Bangladesh |
