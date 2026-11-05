@@ -39,7 +39,6 @@ This repository contains the **BookNook frontend client**. Authentication is han
 
 | Screenshot | Description |
 |---|---|
-| ![Project Preview](public/screenshots/project-preview.png) | Full project overview |
 | ![Home Page](public/screenshots/homepage.png) | Hero slider, categories, and new arrivals |
 | ![Books Page](public/screenshots/books-page.png) | Search, filter, and paginated catalog |
 | ![Book Details](public/screenshots/book-details.png) | Detail view with availability and borrow modal |
